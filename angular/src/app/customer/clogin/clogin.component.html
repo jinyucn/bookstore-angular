@@ -1,0 +1,94 @@
+<!-- header-bottom-area-start -->
+<div class="header-bottom-area bg-color-1 ptb-25">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+        <div class="logo">
+          <a routerLInk="/index"><img src="../../../assets/img/logo.png" alt="" /></a>
+        </div>
+      </div>
+      <!--<div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">-->
+        <!--<div class="header-top-right">-->
+          <!--<div class="mainmenu">-->
+            <!--<ul>-->
+              <!--<li><a class="owner-title"> Shop Owner Center </a></li>-->
+            <!--</ul>-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</div>-->
+    </div>
+  </div>
+</div>
+<!-- header-bottom-area-end -->
+
+
+
+<!-- account area start -->
+<div class="account-area pt-30 log padding">
+  <section class="testimonial-section-two alternate padding" style="background-image: url('../../../assets/img/background/4.jpg')">
+    <!-- breadcrumb start -->
+    <div class="breadcrumb-area">
+      <div class="container">
+        <ol class="breadcrumb">
+          <li><a class="color2" routerLink="/index"><i class="fa fa-home color1"> ParkNShop Home</i> </a></li>
+          <li class="active color1">Login</li>
+        </ol>
+      </div>
+    </div>
+    <!-- breadcrumb end -->
+    <div class="auto-container">
+      <div class="row clearfix">
+        <div class="col-md-3 col-lg-3 col-sm-3"></div>
+        <div class="col-md-6 col-lg-6 col-sm-6">
+          <div class="inner-column">
+            <br/>
+            <h1 class="loginfont">Customer Login Here</h1>
+            <br/><br/>
+            <div class="contact-form">
+              <form id="contact-form">
+                <div class="row clearfix">
+                  <div class="form-group col-lg-12 col-md-12 col-sm-12 set-center">
+                    <mat-form-field appearance="outline" style="width: 70%;">
+                      <mat-label style="font-family: Montserrat sans-serif;">UserName</mat-label>
+                      <input  matInput  type="text" [(ngModel)]="login_nick" name="login_nick" style="background: transparent;border:0;height: 20px;margin: 0;color: #5bc0de;">
+                      <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                    </mat-form-field>
+                  </div>
+                  <div class="form-group col-lg-12 col-md-12 col-sm-12 set-center">
+                    <mat-form-field appearance="outline" style="width: 70%" class="mat-form">
+                      <mat-label style="font-family: Montserrat sans-serif;">Password</mat-label>
+                      <input  matInput  type="password" [(ngModel)]="login_password" name="login_password" style="background: transparent;border:0;height: 20px;color: #5bc0de;font-size: large">
+                      <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                    </mat-form-field>
+                  </div>
+                  <div class="form-group col-lg-12 col-md-12 col-sm-12 set-center">
+                    <div class="form-group col-lg-4 col-md-12 col-sm-12 set-center">
+                      <button mat-raised-button (click)="openRegisterDialog()" class="theme-btn btn-style-two" matTooltip="click here to register" style="background:transparent">Register</button>
+                    </div>
+                    <div class="form-group col-lg-4 col-md-12 col-sm-12 set-center">
+                      <ol>
+                        <li>
+                          <button mat-raised-button (click)="openDialog()" class="theme-btn btn-style-two" matTooltip="click here to find the pwd" style="background:transparent">forget pwd</button>
+                        </li>
+                        <li *ngIf="email">
+                          You chose: <i>{{email}}</i>
+                        </li>
+                      </ol>
+                    </div>
+                    <div class="form-group col-lg-4 col-md-12 col-sm-12 set-center">
+                      <button mat-raised-button type="submit" class="theme-btn btn-style-two" (click)="login()" matTooltip="click here to login" style="background: transparent;">&nbsp;&nbsp;&nbsp;&nbsp;Login&nbsp;&nbsp;&nbsp;&nbsp; </button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div><br><br><br><br><br><br><br></div>
+  </section>
+</div>
+
+
+

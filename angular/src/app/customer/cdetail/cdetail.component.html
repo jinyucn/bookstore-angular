@@ -1,0 +1,92 @@
+<app-main-header></app-main-header>
+<app-mobile-menu></app-mobile-menu>
+
+<div *ngIf="cando == true">
+  <div class="page-wrapper">
+    <section class="shop-single-section sidebar-page-container">
+      <div class="auto-container">
+        <div class="row clearfix">
+
+          <!--Content Column-->
+          <!--<div class="content-column col-lg-8 col-md-12 col-sm-12"  style="width: 500px">-->
+            <div class="inner-column" style="width: 500px;margin-left: 160px">
+              <div class="shop-single" style="width: 500px">
+                <div class="inner-box" style="width: 500px">
+                  <!--<div class="product-img pt-20">-->
+                    <img src="http://47.106.108.89:8086/static/{{cproductstate.data.picFilename}}"  style="width: 450px;height: 400px;margin-bottom: 40px" alt="" />
+                  <!--</div>-->
+                </div>
+              </div>
+
+              <!--Popular Category-->
+
+
+              <!--Comments Area-->
+              <div class="comments-area" style="width: 1000px">
+                <div class="group-title" >
+                  <h2>Comments</h2>
+                  <h2 *ngIf="canshow==false">No comments!</h2>
+                </div>
+
+                <!--Comment Box-->
+                <div class="comment-box" *ngFor="let comments of product_comments.data">
+                  <div class="comment" >
+                    <div class="author-thumb"><img src="../../../assets/img/author-8.jpg" alt=""></div>
+                    <div class="comment-inner">
+                      <div class="post-info">by {{comments.nick}} at {{comments.create_time}}</div>
+                      <div><nz-rate name="comments.rating" [(ngModel)]="comments.rating" nzDisabled></nz-rate></div>
+                      <div class="text" style="color: black;font-size: larger">{{comments.content}} </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!--Comment Box-->
+                <!--<div class="comment-box" *ngif="product_comments.data=null">-->
+                  <!--<div class="comment">-->
+                    <!--<div class="author-thumb"><img src="../../../assets/img/author-7.jpg" alt=""></div>-->
+                    <!--<div class="comment-inner">-->
+                      <!--<div class="post-info">by Anna Tomson on December 3, 2013 at 1:29 am</div>-->
+                      <!--<div class="comment-info">This is a beautifully crafted theme! </div>-->
+                      <!--<div class="text">Lorem Ipsum proin gravida nibh vel velit auctor aliquenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit. Duis sed odio sit amet nibh vulputate cursus a sit amet </div>-->
+                      <!--<a class="reply-comment" href="#">reply</a>-->
+                    <!--</div>-->
+                  <!--</div>-->
+                <!--</div>-->
+
+              </div>
+
+            </div>
+          <!--</div>-->
+
+          <!--Sidebar Column-->
+          <div class="sidebar-column col-lg-4 col-md-12 col-sm-12" >
+            <div class="inner-column" style="height: 400px">
+
+              <!--Purchased Widget-->
+              <div class="purchased-widget">
+                <div class="inner-box" style="background-color: #FFFFF0">
+                  <br>
+                  <h3 style="font-size: 40px">{{cproductstate.data.title}}</h3>
+                  <div class="text" style="font-size: 25px">On sale!</div>
+                  <div class="price" style="margin-bottom: 10px">$<div class="price" style="margin-left: 10px;margin-bottom: 10px">{{cproductstate.data.price}}</div></div>
+                  <!--<div class="product-quantity" style="margin-top: 10px">amount:<input type="number" min="1" [(ngModel)]="pnumber" name="pnumber" style="width: 60px;margin-left: 10px;height: 30px" /></div>-->
+                  <div>
+                    <br>
+                    <button nz-button nzType="primary" [nzSize]="large" nzGhost (click)="AddToCart(pid)" class="theme-btn btn-style-two" style="width: 120px">add to cart</button>
+                  </div>
+                  <br>
+                  <div class="live"><a data-toggle="tooltip" title="Wishlist" (click)="AddWish(pid)"><i class="fa fa-heart">Add to Favorite</i></a></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+    <!--End Shop Single Section-->
+
+  </div>
+</div>
+
+

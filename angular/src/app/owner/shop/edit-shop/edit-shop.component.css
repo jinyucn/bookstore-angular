@@ -1,0 +1,35 @@
+.example-full-width {
+  width: 70%;
+  border:0px;
+}
+.input{
+  width: 100%;
+  color: white;
+  border:0px;
+}
+.input:hover{
+  color:white;
+}
+
+.pad{
+  padding: 0px 15px;
+}
+.pad2{
+  padding: 0px 9px;
+}
+
+.breadcrumb{
+  background-color: #444444;
+  margin-bottom: 0;
+  border-radius: 0;
+  padding: 17px 15px;
+}
+
+.color1{
+  color: #ffffff;
+}
+.color2{
+  color: #cccccc;
+}
+
+

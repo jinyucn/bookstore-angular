@@ -1,0 +1,37 @@
+.owner-title{
+  color: #ffffff;
+  display: block;
+  font-size: 25px;
+  font-weight: 500;
+  padding: 17px 15px;
+  text-transform: capitalize;
+  transition: all .3s;
+  font-family: "Arial Black";
+}
+
+.color1{
+  color: #ffffff;
+}
+.color2{
+  color: #cccccc;
+}
+
+.border{
+  border-style: solid;
+  alignment: left;
+}
+
+.breadcrumb{
+  background-color: #444444;
+  margin-bottom: 0;
+  border-radius: 0;
+  padding: 17px 15px;
+}
+.product-menu-title{
+  transition: all 5s ease 0s;
+}
+
+.pad{
+  padding: 0px 15px;
+}
+

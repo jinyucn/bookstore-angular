@@ -1,0 +1,84 @@
+<app-main-header></app-main-header>
+<app-mobile-menu></app-mobile-menu>
+<div *ngIf="cando == true">
+  <div class="breadcrumb-area">
+    <div class="container">
+      <ol class="breadcrumb">
+        <li><a routerLink="/index"><i class="fa fa-home"></i> Home</a></li>
+        <li *ngIf="isshop==false"><a routerLink="/cmywish/shop" class="active" (click)="Click()">My Favorite Shops</a></li>
+        <li *ngIf="isshop==true"><a routerLink="/cmywish/product" class="active" (click)="Click()">My Favorite Products</a></li>
+        <li class="active" *ngIf="isshop==true">My Favorite Shops</li>
+        <li class="active" *ngIf="isshop==false">My Favorite Products</li>
+      </ol>
+    </div>
+  </div>
+</div>
+<!-- breadcrumb end -->
+<!-- cart-main-area start -->
+<div *ngIf="isshop==true">
+  <div class="cart-main-area pt-0" style="background-color: white">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+          <form action="#">
+            <div class="table-content table-responsive">
+              <table>
+                <thead>
+                <tr>
+                  <th class="product-thumbnail">Image</th>
+                  <th class="product-price">ShopName (Category)</th>
+                  <th class="product-name">Contact ShopOwner</th>
+                  <th class="product-remove">Remove</th>
+                </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let myshopwish of shopwish.data">
+                    <td class="product-thumbnail"><a routerLink="/cproduct/0/{{myshopwish.id}}/{{myshopwish.shopName}}"><img src="../../../assets/img/product/2.png" alt="" /></a></td>
+                    <td class="product-price"><span class="amount">{{myshopwish.shopName}}<br/>({{arr[myshopwish.shopCategory]}})</span></td>
+                    <td class="product-name"><a>ShopAddress:{{myshopwish.shopAddress}}<br/>Telphone:{{myshopwish.shopPhone}}<br/>E-mail:{{myshopwish.shopEmail}}</a></td>
+                    <td class="product-remove"><div><i nz-i nzType="danger" nz-popconfirm nzTitle="Are you sure to delete this shop?" (nzOnConfirm)="RemoveWishShop(myshopwish.id)" (nzOnCancel)="cancel()" class="fa fa-times"></i></div></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="background-color: white;"><br/><br/><br/><br/><br/><br/></div>
+</div>
+
+<div *ngIf="isshop==false">
+  <div class="cart-main-area pt-0" style="background-color: white">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+          <form action="#">
+            <div class="table-content table-responsive">
+              <table>
+                <thead>
+                <tr>
+                  <th class="product-thumbnail">Image</th>
+                  <th class="product-name">Product</th>
+                  <th class="product-price">Price</th>
+                  <th class="product-remove">Remove</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let myproductwish of productwish.data">
+                  <td class="product-thumbnail"><a routerLink="/cdetail/{{myproductwish.id}}"><img src="http://47.106.108.89:8086/static/{{myproductwish.picFilename}}" alt="" /></a></td>
+                  <td class="product-name"><a>{{myproductwish.title}}</a></td>
+                  <td class="product-price"><span class="amount">${{myproductwish.price}}</span></td>
+                  <td class="product-remove"><div><i nz-i nzType="danger" nz-popconfirm nzTitle="Are you sure to delete this shop?" (nzOnConfirm)="RemoveWishProduct(myproductwish.id)" (nzOnCancel)="cancel()" class="fa fa-times"></i></div></td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="background-color: white"><br/><br/><br/><br/><br/><br/></div>
+</div>

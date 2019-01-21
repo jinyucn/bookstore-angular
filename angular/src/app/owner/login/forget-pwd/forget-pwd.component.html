@@ -1,0 +1,39 @@
+<div>
+  <h1>Find the password</h1>
+  <div mat-dialog-content>
+    <mat-form-field>
+      <input matInput placeholder="Input phone number" [(ngModel)]="input_phone" name="input_phone">
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <input matInput placeholder="Input username" [(ngModel)]="input_nick" name="input_phone">
+    </mat-form-field>
+    <br>
+    <button mat-button style="color: white;background-color: #9d9d9d" (click)=send_verify_code2()>send the verification code</button>
+    <br>
+    <mat-form-field>
+      <input placeholder="Input the verification code" matInput [(ngModel)]="got_code" name="got_code">
+    </mat-form-field>
+    <!--<br>-->
+    <!--<label>Reset the password</label>-->
+    <br>
+    <mat-form-field>
+      <p>
+        <input placeholder="Enter new password" type="password" matInput [(ngModel)]="input_password">
+      </p>
+    </mat-form-field>
+    <p>Hint: Password must be 8~16 numbers and letters</p>
+    <!--<mat-form-field>-->
+    <!--<p>-->
+    <!--<input placeholder="Re-enter new password" type="password" matInput [(ngModel)]="data.lost_password1">-->
+    <!--</p>-->
+    <!--</mat-form-field>-->
+    <!--<p *ngIf="data.lost_password==data.lost_password1&&data.lost_password!=null&&data.lost_password!=''">Consistent password</p>-->
+    <!--<p *ngIf="data.lost_password!=data.lost_password1&&data.lost_password!=null&&data.lost_password!=''" style="color:CCFF99">Inconsistent password!</p>-->
+    <!--<p *ngIf="data.lost_password==null || data.lost_password==''" style="color:CCFF99">Password can't be null!</p>-->
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button style="color: white;background-color: #9d9d9d" (click)="onNoClick()">Return</button>
+    <button mat-button style="color: white;background-color: #9d9d9d" (click)="changeP()">Confirm</button>
+  </div>
+</div>

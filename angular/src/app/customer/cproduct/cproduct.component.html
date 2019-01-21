@@ -1,0 +1,174 @@
+<app-main-header></app-main-header>
+<app-mobile-menu></app-mobile-menu>
+<!-- mainmenu-area-end -->
+<div class="breadcrumb-area">
+  <div class="container">
+    <ol class="breadcrumb">
+      <li><a routerLink="/index"><i class="fa fa-home"></i> Home</a></li>
+      <li class="active">Products</li>
+    </ol>
+  </div>
+</div>
+<div *ngIf="tmp==false && tmp2==true && cando == true">
+  <div class="shop-area">
+    <div class="container">
+        <div class="shop-page-bar">
+          <div>
+            <!-- Tab panes -->
+            <div class="tab-content">
+              <div role="tabpanel" class="tab-pane active">
+                <div class="col-md-4 col-sm-4">
+                  <span class="pro-sale-num">
+                    <span class="info-sale"><a (click)="AddWish(oneshopstate.data.id)"><i class="fa fa-heart"></i> Add to Favorite</a></span>
+                  </span>
+                  <li class="list-item">
+                    <ul class="clearfix">
+                      <li class="list-img">
+                        <a trace="shop" trace-uid="112394247" title="ShopName" target="_blank">
+                          <img src="../../../assets/img/product/2.png">
+                        </a>
+                      </li>
+                      <li class="list-info icon-5zhe">
+                        <h4>
+                          <a trace="shop" trace-uid="112394247" class="shop-name J_shop_name" target="_blank">{{oneshopstate.data.shopName}}</a>
+                          <a trace="shop" trace-uid="112394247" title="天猫" class="icon-service-tianmao-large"
+                             target="_blank"></a>
+                        </h4>
+                        <p class="shop-info">
+                          <a trace="shop" trace-uid="112394247" class="shop-name J_shop_name" target="_blank">
+                            {{arr[oneshopstate.data.shopCategory]}}
+                          </a>
+                          <a trace="shop" trace-uid="112394247" title="天猫" class="icon-service-tianmao-large"
+                             target="_blank"></a>
+                        </p>
+                        <p class="shop-info">
+                          <span></span>
+                          <span class="shop-info-list"><a trace="shop" trace-uid="112394247" target="_blank"></a>
+                          </span>
+                        </p>
+                        <p class="shop-info">
+                          <span>Address:</span>
+                          <span class="shop-address">{{oneshopstate.data.shopAddress}}</span>
+                        </p>
+                        <p class="shop-info">
+                          <span>Phone:</span>
+                          <span class="shop-address">{{oneshopstate.data.shopPhone}}</span>
+                        </p>
+                        <br/>
+                        <div class="valuation clearfix" data-spm-anchor-id="a230r.7195193.1997079397.i0.2cd9277d98DWsE">
+                          <span class="icon-list"></span>
+                        </div>
+                      </li>
+                    </ul>
+                  </li>
+                </div>
+                <div class="col-md-7 col-sm-7">
+                  <li class="list-img">
+                    <img src="../../../assets/img/product/welcome.jpg">
+                  </li>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-11 col-sm-11">
+          <div class="col-md-1 col-sm-1"></div>
+          <div class="col-md-11 col-sm-11">
+            <li class="list-img2">
+              <a><a><img src="../../../assets/img/leaf.png"></a></a>
+            </li>
+          </div>
+          <div class="col-md-1 col-sm-1"></div>
+
+          <div class="col-md-12 col-sm-12">
+            <div class="col-md-2 col-sm-2"></div>
+            <div *ngFor="let cproductcontent of topstate.data">
+              <div class="shop-page-bar">
+                <div>
+                  <!-- Tab panes -->
+                  <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="home2">
+                      <div class="col-lg-3 col-md-3 col-sm-6">
+                        <div class="single-product mb-30  white-bg">
+                          <div class="product-img pt-20">
+                            <a routerLink="/cdetail/{{cproductcontent.id}}"><img src="http://47.106.108.89:8086/static/{{cproductcontent.picFilename}}" width="300px" height="300px" alt="" /></a>
+                          </div>
+                          <div class="product-content product-i">
+                            <div class="pro-title">
+                              <h4><a routerLink="/cdetail/{{cproductcontent.id}}">{{cproductcontent.title}}</a></h4>
+                            </div>
+                            <div class="price-box">
+                              <span class="price product-price">${{cproductcontent.price}}</span>
+                            </div>
+                            <div class="product-icon">
+                              <div class="product-icon-left">
+                                <a data-toggle="tooltip" title="Wishlist" (click)="AddToCart(cproductcontent.id)"><i class="fa fa-shopping-cart"></i>Add to Cart</a>
+                              </div>
+                              <div class="product-icon-left">
+                                <a data-toggle="tooltip" title="Wishlist" (click)="AddWish2(cproductcontent.id)"><i class="fa fa-heart"></i>Add to Favorite</a>
+                              </div>
+                            </div>
+                          </div>
+                          <span class="new">new</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-1 col-sm-1"></div>
+          <div class="col-md-11 col-sm-11">
+            <li class="list-img2">
+              <a><a><img src="../../../assets/img/leaf.png"></a></a>
+            </li>
+          </div>
+        </div>
+    </div>
+    <br/><br/>
+  </div>
+</div>
+<!-- shop-area start -->
+<div class="shop-area">
+  <div class="container">
+    <div *ngFor="let cproductcontent of cproductstate.data">
+      <div class="shop-page-bar">
+        <div>
+          <!-- Tab panes -->
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="home">
+              <div class="col-lg-3 col-md-3 col-sm-6">
+                <div class="single-product mb-30  white-bg">
+                  <div class="product-img pt-20">
+                    <a routerLink="/cdetail/{{cproductcontent.id}}"><img src="http://47.106.108.89:8086/static/{{cproductcontent.picFilename}}" width="300px" height="300px" alt="" /></a>
+                  </div>
+                  <div class="product-content product-i">
+                    <div class="pro-title">
+                      <h4><a routerLink="/cdetail/{{cproductcontent.id}}">{{cproductcontent.title}}</a></h4>
+                    </div>
+                    <div class="price-box">
+                      <span class="price product-price">${{cproductcontent.price}}</span>
+                    </div>
+                    <div class="product-icon">
+                      <div class="product-icon-left">
+                        <a data-toggle="tooltip" title="Wishlist" (click)="AddToCart(cproductcontent.id)"><i class="fa fa-shopping-cart"></i>Add to Cart</a>
+                      </div>
+                      <div class="product-icon-left">
+                        <a data-toggle="tooltip" title="Wishlist" (click)="AddWish2(cproductcontent.id)"><i class="fa fa-heart"></i>Add to Favorite</a>
+                      </div>
+                    </div>
+                  </div>
+                  <span class="new">new</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+</div>
+<!-- shop-area end -->

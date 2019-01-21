@@ -1,0 +1,39 @@
+.pad{
+  padding: 0px 15px;
+}
+
+.breadcrumb{
+  background-color: #444444;
+  margin-bottom: 0;
+  border-radius: 0;
+  padding: 17px 15px;
+}
+
+.color1{
+  color: #ffffff;
+}
+.color2{
+  color: #cccccc;
+}
+
+input{
+  height: 20px;
+}
+
+.mat-column-cause {
+  max-width: 20%;
+}
+
+.mat-column-delta {
+  max-width: 20%;
+}
+
+.mat-column-gmtCreate{
+  max-width: 30%;
+}
+.mat-column-detail{
+  max-width: 30%;
+}
+table {
+  width: 100%;
+}

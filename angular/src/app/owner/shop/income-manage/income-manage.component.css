@@ -1,0 +1,21 @@
+.pad{
+  padding: 0px 15px;
+}
+
+.breadcrumb{
+  background-color: #444444;
+  margin-bottom: 0;
+  border-radius: 0;
+  padding: 17px 15px;
+}
+
+.color1{
+  color: #ffffff;
+}
+.color2{
+  color: #cccccc;
+}
+
+input{
+  height: 20px;
+}

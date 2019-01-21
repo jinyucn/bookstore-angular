@@ -1,0 +1,15 @@
+<h1 mat-dialog-title *ngIf="type=='SHOP_AD'">SHOP AD DETAILS</h1>
+<h1 mat-dialog-title *ngIf="type=='PRODUCT_AD'">PRODUCT AD DETAILS</h1>
+<div mat-dialog-content style="font-family: 'American Typewriter'">
+  <p>Ad Type: {{type}}</p>
+  <p>Ad Title: {{title}}</p>
+  <p>Ad Price: {{price}}</p>
+  <p *ngIf="type=='PRODUCT_AD'">Product Id: {{prodId}}</p>
+  <p *ngIf="type=='PRODUCT_AD'&&prodTitle">Product Title: {{prodTitle}}</p>
+  <p *ngIf="type=='PRODUCT_AD'&&prodPrice">Product Price: {{prodPrice}}</p>
+  <p *ngIf="type=='PRODUCT_AD'&&mesg">Message: {{mesg}}</p>
+  <img src="http://47.106.108.89:8086/static/{{image}}">
+</div>
+<mat-dialog-actions align="end">
+  <button mat-raised-button [mat-dialog-close]="true">OK</button>
+</mat-dialog-actions>

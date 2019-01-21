@@ -1,0 +1,59 @@
+
+
+.s1{
+  background: #ffffff;
+  font-size: 50px;
+  border: 1px solid #eaeaea;
+  font-family: "Arial Black";
+}
+
+.upload-file{
+  background-color: #ffffff;
+  border: 1px solid #eaeaea;
+  font-family: "Arial Black";
+  font-size: 15px;
+}
+
+.upload-btn{
+  background-color: #ffffff;
+  border-style: outset;
+  border-width: 3px;
+  font-family: "Arial Black";
+  font-size: 15px;
+  height: 90%;
+  border-radius: 5px;
+  color: #000000;
+
+}
+
+.breadcrumb{
+  background-color: #444444;
+  margin-bottom: 0;
+  border-radius: 0;
+  padding: 17px 15px;
+}
+
+.color1{
+  color: #ffffff;
+}
+.color2{
+  color: #cccccc;
+}
+.color3{
+  background-color: #666666;
+  border: 1px solid #666666;
+}
+.color4{
+  background-color: #83CBDC;
+}
+
+.pad{
+  padding: 0px 15px;
+}
+
+.my-drop-zone { border: dotted 3px lightgray; }
+.nv-file-over { border: dotted 3px red; } /* Default class applied to drop zones on over */
+.another-file-over-class { border: dotted 3px green; }
+
+html, body { height: 100%; }
+

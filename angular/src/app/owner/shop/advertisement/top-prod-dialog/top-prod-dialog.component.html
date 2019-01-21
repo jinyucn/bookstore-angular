@@ -1,0 +1,10 @@
+<h1 mat-dialog-title>PRODUCT DETAILS</h1>
+<div mat-dialog-content style="font-family: 'American Typewriter'">
+  <p>Product Id: {{id}}</p>
+  <p>Product Title: {{title}}</p>
+  <p>Product Price: {{price}}</p>
+  <img src="http://47.106.108.89:8086/static/{{picFilename}}">
+</div>
+<mat-dialog-actions align="end">
+  <button mat-raised-button [mat-dialog-close]="true">OK</button>
+</mat-dialog-actions>

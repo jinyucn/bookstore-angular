@@ -1,0 +1,41 @@
+<div>
+  <h1 style="color:black" >Register</h1>
+  <p>
+    <input placeholder="Enter your username" [(ngModel)]="register_nick" name="register_nick" style="font-size: large">
+  </p>
+  <p>
+    <input placeholder="Enter your phone" [(ngModel)]="register_phone" name="register_phone" style="font-size: large">
+  </p>
+  <p>
+    <button mat-button style="color: white;background-color: #5bc0de" (click)=send_verify_code()>send the verification code</button>
+  </p>
+  <!--<mat-form-field>-->
+  <p>
+    <input placeholder="Enter your verification code" [(ngModel)]="register_verifyCode" name="register_verifyCode" style="font-size: large">
+  </p>
+  <!--</mat-form-field>-->
+  <p>
+    <input placeholder="Enter your email address" [(ngModel)]="register_email" name="register_email" style="font-size: large">
+  </p>
+  <!--<label style="color: black;">set the password</label>-->
+  <!--<mat-form-field>-->
+  <p>
+    <input placeholder="Enter your password" type="password" [(ngModel)]="register_password" name="register_password" style="font-size: large">
+  </p>
+  Address:
+  <nz-cascader
+    nzChangeOnSelect
+    [nzOptions]="nzOptions"
+    [(ngModel)]="values"
+    name="values"
+    (ngModelChange)="onChanges($event)" style="width: 300px;margin-bottom: 10px">
+  </nz-cascader>`
+  <br>
+  <p>
+    <input placeholder="Enter your street here" [(ngModel)]="register_address" name="register_address" style="font-size: large">
+  </p>
+  <!--</mat-form-field>-->
+  <p>Hint: Password must be 8~16 numbers and letters</p>
+  <button mat-button (click)="onNoClick()">return</button>
+  <button mat-button (click)="register()">Register</button>
+</div>

@@ -1,0 +1,129 @@
+<app-so-header></app-so-header>
+
+<!--menu-area-start-->
+<div class="mainmenu-area bg-color-2 hidden-xs hidden-sm">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3">
+        <app-so-main-menu></app-so-main-menu>
+      </div>
+      <div class="col-md-9 pad">
+        <div class="breadcrumb">
+          <li><a class="color2" routerLink="/index"><i class="fa fa-home color1"></i> Home </a></li>
+          <li><a class="color2" routerLink="/ShopOwnerCenter">ShopOwnerCenter </a></li>
+          <li class="active color1"> Add Product </li>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--menu-area-end-->
+
+<div style="background: white">
+
+  <div>
+    <div class="container">
+      <div>
+        <div class="col-md-3">
+        </div>
+        <div class="col-md-9 pad2">
+            <mat-card >
+              <mat-form-field class="example-full-width">
+                <input style="border:0px" matInput placeholder="Product Title" required="true" [(ngModel)]="title" name="title">
+                <mat-icon matSuffix>mode_edit</mat-icon>
+              </mat-form-field>
+              <br>
+              <mat-form-field class="example-full-width2">
+                <input style="border:0px" matInput placeholder="Product Price"  type="number" required="true" [(ngModel)]="price" name="price" min="0">
+                <mat-icon matSuffix>mode_edit</mat-icon>
+              </mat-form-field>
+
+            <p>
+              <label>Product Photo <span class="required">*</span></label>
+            </p>
+            <!--<img height="100px" width="100px" src="{{imgFaceWithIdFilename}}">-->
+            <div>
+              <div class="row">
+                <div class="col-md-4">
+                  <h5>Select files</h5>
+                  <div ng2FileDrop
+                       [ngClass]="{'nv-file-over': hasBaseDropZoneOver}"
+                       (fileOver)="fileOverBase($event)"
+                       [uploader]="uploader"
+                       class="well my-drop-zone">
+                    Drop zone
+                  </div>
+                  <input type="file" ng2FileSelect [uploader]="uploader" (change)="selectedFileOnChanged($event)"/>
+                </div>
+                <div class="col-md-8" style="margin-bottom: 40px">
+                  <h5>Upload queue</h5>
+                  <table class="table">
+                    <thead>
+                    <tr>
+                      <th style="max-width: 150px">Name</th>
+                      <th style="max-width: 50px">Size</th>
+                      <th>Progress</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let item of uploader.queue">
+                      <td style="max-width: 150px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;"><strong>{{ item?.file?.name }}</strong></td>
+                      <td style="max-width: 50px" *ngIf="uploader.isHTML5" nowrap>{{ item?.file?.size/1024/1024 | number:'.2' }} MB</td>
+                      <td *ngIf="uploader.isHTML5">
+                        <div class="progress" style="margin-bottom: 0;">
+                          <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': item.progress + '%' }"></div>
+                        </div>
+                      </td>
+                      <td class="text-center">
+                        <span *ngIf="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>
+                        <span *ngIf="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>
+                        <span *ngIf="item.isError"><i class="glyphicon glyphicon-remove"></i></span>
+                      </td>
+                      <td nowrap>
+                        <button type="button" class="btn btn-success btn-xs"
+                                (click)="uploadPic(item)" [disabled]="item.isReady || item.isUploading || item.isSuccess">
+                          <span class="glyphicon glyphicon-upload"></span> Upload
+                        </button>
+                        <button type="button" class="btn btn-warning btn-xs"
+                                (click)="item.cancel()" [disabled]="!item.isUploading">
+                          <span class="glyphicon glyphicon-ban-circle"></span> Cancel
+                        </button>
+                        <button type="button" class="btn btn-danger btn-xs"
+                                (click)="item.remove()">
+                          <span class="glyphicon glyphicon-trash"></span> Remove
+                        </button>
+                      </td>
+                    </tr>
+                    </tbody>
+                  </table>
+                  <div>
+                    <div>
+                      Queue progress:
+                      <div class="progress" style="">
+                        <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <label>{{mesg}}</label>
+              <button  mat-flat-button color="primary" (click)="apply()" >Submit</button>
+            </mat-card>
+          </div>
+
+
+      </div>
+    </div>
+  </div>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+</div>

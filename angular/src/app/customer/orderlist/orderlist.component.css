@@ -1,0 +1,113 @@
+.search-box form select#select {
+  background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+  border: medium none;
+  color: black;
+  height: 50px;
+  padding: 0 8px;
+  position: absolute;
+  width: 120px;
+}
+
+.search-box form select#select2 {
+   background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+   border: medium none;
+   color: black;
+   height: 50px;
+   padding: 0 8px;
+   position: absolute;
+   width: 85px;
+ }
+
+.search-box form select#select3 {
+  background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+  border: medium none;
+  color: black;
+  height: 50px;
+  padding: 0 8px;
+  left: 420px;
+  position: absolute;
+  width: 85px;
+}
+
+
+
+.search-box2 form input {
+  height: 30px;
+  padding-left: 0px;
+  padding-right: 0px;
+  background: aliceblue none repeat scroll 0 0;
+}
+
+.header-bottom-middle {
+  width:600px;
+}
+
+.search-box2 form button {
+  background: cornflowerblue none repeat scroll 0 0;
+  border: medium none;
+  border-radius: 0 2px 2px 0;
+  color: #ffffff;
+  font-size: 15px;
+  height: 100%;
+  position: absolute;
+  right: 0;
+  width: 30px;
+  top: 0;
+}
+
+.search-box3 form button {
+  background: darkseagreen none repeat scroll 0 0;
+  border: medium none;
+  border-radius: 0 2px 2px 0;
+  color: #ffffff;
+  font-size: 15px;
+  height: 30px;
+  position: absolute;
+  right: 0;
+  width: 45px;
+  top: 0;
+}
+
+.fa.fa-search {
+  height: 30px;
+}
+
+.fa.fa-trash {
+  height: 30px;
+}
+
+.custom-filter-dropdown {
+  padding: 8px;
+  border-radius: 6px;
+  background: #fff;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, .2);
+}
+
+[nz-input] {
+  width: 130px;
+  margin-right: 8px;
+}
+
+.highlight {
+  color: #f50;
+}
+
+.table-operations {
+  margin-bottom: 16px;
+}
+
+.table-operations > button {
+  margin-right: 8px;
+}
+
+.moran {
+
+}
+
+nz-date-picker, nz-month-picker, nz-year-picker, nz-range-picker, nz-week-picker {
+  margin: 0 8px 12px 0;
+}
+
+[nz-button] {
+  margin-bottom: 12px;
+}

@@ -1,0 +1,90 @@
+<div class="mainmenu-left">
+  <div class="product-menu-title">
+    <h2>All Tasks<i class="fa fa-arrow-circle-down"></i></h2>
+  </div>
+  <div class="product_vmegamenu">
+    <div>
+      <mat-accordion>
+        <mat-expansion-panel [hideToggle]="true" *ngIf="show">
+          <mat-expansion-panel-header routerLink="/OpenShop">
+          <span style="font-family:'Adobe Gothic Std'">
+            <mat-panel-title>Open Shop</mat-panel-title>
+          </span>
+          </mat-expansion-panel-header>
+        </mat-expansion-panel>
+        <mat-expansion-panel *ngIf="show==false">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+            <span style="font-family:'Adobe Gothic Std'">
+              My Shop
+            </span>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <p>
+          <span style="font-family:'Adobe Hebrew';font-size: 14px;">
+            <a style="color: #7c7b7b" routerLink="/editShop">- Edit Shop</a>
+            <a style="color: #7c7b7b" class="floatright" routerLink="/seeShop">- See Shop</a>
+          </span>
+          </p>
+        </mat-expansion-panel>
+        <mat-expansion-panel [hideToggle]="true">
+          <mat-expansion-panel-header routerLink="/Notification">
+          <span style="font-family:'Adobe Gothic Std'">
+            <mat-panel-title>Notification</mat-panel-title>
+          </span>
+          </mat-expansion-panel-header>
+        </mat-expansion-panel>
+        <mat-expansion-panel *ngIf="show==false">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+            <span style="font-family:'Adobe Gothic Std'">
+              Product
+            </span>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <p>
+          <span style="font-family:'Adobe Hebrew';font-size: 14px;">
+            <a style="color: #7c7b7b" routerLink="/addItem">- Add Product</a>
+            <a style="color: #7c7b7b" routerLink="/ViewItem" class="floatright">- View Product</a>
+          </span>
+          </p>
+        </mat-expansion-panel>
+        <mat-expansion-panel [hideToggle]="true" *ngIf="show==false">
+          <mat-expansion-panel-header routerLink="/advertisement">
+          <span style="font-family:'Adobe Gothic Std'">
+            <mat-panel-title>Advertisement</mat-panel-title>
+          </span>
+          </mat-expansion-panel-header>
+        </mat-expansion-panel>
+        <mat-expansion-panel [hideToggle]="true" *ngIf="show==false">
+          <mat-expansion-panel-header routerLink="/orderManage">
+          <span style="font-family:'Adobe Gothic Std'">
+            <mat-panel-title>Order Management</mat-panel-title>
+          </span>
+          </mat-expansion-panel-header>
+        </mat-expansion-panel>
+        <mat-expansion-panel [hideToggle]="true" *ngIf="show==false">
+          <mat-expansion-panel-header routerLink="/SalesHistory">
+          <span style="font-family:'Adobe Gothic Std'">
+            <mat-panel-title>Sales History</mat-panel-title>
+          </span>
+          </mat-expansion-panel-header>
+        </mat-expansion-panel>
+        <mat-expansion-panel [hideToggle]="true" *ngIf="show==false">
+          <mat-expansion-panel-header routerLink="/income">
+          <span style="font-family:'Adobe Gothic Std'">
+            <mat-panel-title>Income</mat-panel-title>
+          </span>
+          </mat-expansion-panel-header>
+        </mat-expansion-panel>
+        <mat-expansion-panel [hideToggle]="true" *ngIf="show==false">
+          <mat-expansion-panel-header routerLink="/OwnerAccount">
+          <span style="font-family:'Adobe Gothic Std'">
+            <mat-panel-title>My Account</mat-panel-title>
+          </span>
+          </mat-expansion-panel-header>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+  </div>
+</div>

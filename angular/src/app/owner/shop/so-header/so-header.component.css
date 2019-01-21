@@ -1,0 +1,10 @@
+.owner-title{
+  color: #ffffff;
+  display: block;
+  font-size: 25px;
+  font-weight: 500;
+  padding: 17px 15px;
+  text-transform: capitalize;
+  transition: all .3s;
+  font-family: "Zapfino";
+}

@@ -1,0 +1,27 @@
+<h1 mat-dialog-title>ATTENTION</h1>
+<div mat-dialog-content>
+  <p>Your balance: {{balance}}<span style="color: red" *ngIf="balance < adNewPrice">(Your balance is not enough)</span></p>
+  <p style="color: #344e86;text-decoration: #344e86;cursor:pointer;" (click)="goToAccount()" *ngIf="balance < adNewPrice">Go to recharge</p>
+  <p>Are you sure you want to increase the price by 5% ?</p>
+  <p>Please confirm the AD info:</p>
+  <ul>
+    <li>
+      <span>&#10003;</span> Ad Title: {{adTitle}}
+    </li>
+    <li>
+      <span>&#10003;</span> Original Price: ${{adPrice}}
+    </li>
+    <li>
+      <span>&#10003;</span> New Price: ${{adNewPrice}}(+${{delta}})
+    </li>
+  </ul>
+</div>
+
+<mat-dialog-actions align="end">
+  <button mat-raised-button [mat-dialog-close]="true" color="primary" (click)="addPrice()" *ngIf="balance >= adNewPrice">YES</button>
+  <button mat-raised-button [mat-dialog-close]="true" color="primary" (click)="openConfirm()" *ngIf="balance < adNewPrice">YES</button>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <button mat-raised-button (click)="onNoClick()">NO</button>
+</mat-dialog-actions>
+
+

@@ -1,0 +1,63 @@
+<app-so-header></app-so-header>
+
+<!--menu-area-start-->
+<div class="mainmenu-area bg-color-2 hidden-xs hidden-sm">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3">
+        <app-so-main-menu></app-so-main-menu>
+      </div>
+      <div class="col-md-9">
+        <div class="breadcrumb">
+          <li><a class="color2" routerLink="/index"><i class="fa fa-home color1"></i> Home</a></li>
+          <li class="active color1">ShopOwnerCenter</li>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--menu-area-end-->
+
+<!--open-shop-area-start-->
+<div style="background: white">
+  <div class="slider-area">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3">
+        </div>
+        <div class="col-md-9 s1">
+          <div class="s2">
+            <mat-card class="example-card" >
+              <mat-card-header>
+                <mat-card-title>I want to Open a Shop</mat-card-title>
+              </mat-card-header>
+              <br>
+                <mat-card-content>
+                <p>
+                  One identity can only open one online shop.<br/>
+                  After the shop opens, the shop owner cannot close her/his shop.<br/>
+                  It takes an estimated 1-3 business days for the application to be approved.
+                </p>
+              </mat-card-content>
+              <button mat-flat-button color="primary" (click)="openShop()">Open Now</button>
+            </mat-card>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+</div>
+<!--open-shop-area-end-->
+
+

@@ -1,0 +1,160 @@
+<app-so-header></app-so-header>
+<!--menu-area-start-->
+<div class="mainmenu-area bg-color-2 hidden-xs hidden-sm">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3">
+        <app-so-main-menu></app-so-main-menu>
+      </div>
+      <div class="col-md-9 pad">
+        <div class="breadcrumb">
+          <li><a class="color2" routerLink="/index"><i class="fa fa-home color1"></i> Home </a></li>
+          <li><a class="color2" routerLink="/ShopOwnerCenter">ShopOwnerCenter </a></li>
+          <li class="active color1"> Order Management </li>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--menu-area-end-->
+<!--main-area-start-->
+<div style="background: white">
+
+  <div class="slider-area">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3">
+        </div>
+        <div class="col-md-9">
+          <div class="ant-col-md-24">
+          <nz-table #basicTable [(nzPageIndex)]="pageIndex" [nzData]="orderAll.data"
+                    [nzPageSize]="10" [nzNoResult]="nothing">
+              <thead >
+              <tr style="font-size: 12px">
+                <th nzWidth="10%">OrderID</th>
+                <th nzWidth="25%">Order Time</th>
+                <th nzWidth="20%">
+                  <nz-radio-group style="width: 100%;" [(ngModel)]="selectedStatus" (ngModelChange)="getOrderSome(selectedStatus)" [nzButtonStyle]="'outline'">
+                    <label style="width: 35%; font-size: 8px;padding: 0 0;text-align: center" nz-radio-button nzValue="all">All</label>
+                    <label style="width: 65%; font-size: 8px;padding: 0 0;text-align: center" nz-radio-button nzValue="not_shipped">No Arrange</label>
+                  </nz-radio-group>
+                </th>
+                <th nzWidth="35%">Shipment Address</th>
+                <th nzWidth="10%">Action</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let item of orderAll.data">
+                <ng-container >
+                  <td nzWidth="10%">{{item.id}}</td>
+                  <td nzWidth="25%">{{item.gmtCreate}}</td>
+                  <td nzWidth="20%">{{item.status}}</td>
+                  <td nzWidth="35%">{{item.deliverAddress}}</td>
+                  <td nzWidth="10%">
+                    <button nz-button nzType="primary" (click)="checkOne(this.item.id);getOrderOne(this.item.id)" > Arrange</button>
+                  </td>
+                </ng-container>
+              </tr>
+              </tbody>
+            </nz-table>
+            <nz-drawer  [nzBodyStyle] [nzMaskClosable]="false" [nzWidth]="1000" [nzVisible]=visible nzTitle="Order detail" (nzOnClose)="close()">
+              <nz-table #basicTable nzBordered [nzData]="[{}]" [nzPageSize]="50" [nzScroll]="{ y: '600px' }" [nzNoResult]="nothing">
+                <thead>
+                <tr>
+                  <th nzWidth="20%"></th>
+                  <th nzWidth="80%"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td>Customer Username</td>
+                  <td>{{customerNick}}</td>
+                </tr>
+                <tr>
+                  <td>Receiver Name</td>
+                  <td>{{deliverReceiver}}</td>
+                </tr>
+                <tr>
+                  <td>Receiver Phone</td>
+                  <td>{{deliverPhone}}</td>
+                </tr>
+                <tr>
+                  <td>Shipment Address</td>
+                  <td>{{deliverAddress}}</td>
+                </tr>
+                <tr>
+                  <td>Shipment Company</td>
+                  <td><a *ngIf="deliverId > 0"><img src="http://47.106.108.89:8086/static/{{deliverServicePic}}"/>
+                    Tracking Number: {{deliverBillNo}}</a>
+                    <mat-form-field *ngIf="deliverId == 0">
+                      <mat-select placeholder="Choose Shipment Company" [(ngModel)]="selectedCompany">
+                        <mat-option>None</mat-option>
+                        <mat-option *ngFor="let company of companies" [value]="company" >{{company}}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                      <button *ngIf="deliverId == 0" nz-button nzType="primary" (click)="arrange(this.id,this.selectedCompany)">Ship Now</button>
+                      <button *ngIf="deliverId == -1" nz-button nzType="primary" (click)="prepare(this.id)"> Prepare Now</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Order Status</td>
+                  <td>{{status}}</td>
+                </tr>
+                <tr>
+                  <td>Products</td>
+                  <td>
+                    <div>
+                      <nz-table #basicTable  [nzData]="[{}]" [nzPageSize]="50" [nzScroll]="{ y: '200px' }" [nzNoResult]="nothing">
+                <thead>
+                <tr>
+                  <th nzWidth="40%">Title</th>
+                  <th nzWidth="20%">Picture</th>
+                  <th nzWidth="20%">UnitPrice</th>
+                  <th nzWidth="20%">Amount</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let item of products">
+                  <ng-container >
+                    <td nzWidth="40%">{{item.title}}</td>
+                    <td nzWidth="20%"> <a><img src="http://47.106.108.89:8086/static/{{item.merchandisePic}}" alt="" /></a></td>
+                    <td nzWidth="20%">{{item.unitPrice}}</td>
+                    <td nzWidth="20%">{{item.amount}}</td>
+                  </ng-container>
+                </tr>
+                </tbody>
+              </nz-table>
+          </div>
+          </td>
+          </tr>
+          <tr>
+            <td >Total Price</td>
+            <td  style="font-size: large; color: darkorange" >{{total_price}}</td>
+          </tr>
+          </tbody>
+          </nz-table>
+          </nz-drawer>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+</div>
+
+<!--main-area-end-->

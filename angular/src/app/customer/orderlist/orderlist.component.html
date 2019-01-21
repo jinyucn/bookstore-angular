@@ -1,0 +1,228 @@
+<app-main-header></app-main-header>
+<app-mobile-menu></app-mobile-menu>
+
+<div *ngIf="cando2 == true">
+  <div class="breadcrumb-area">
+    <div class="container">
+      <ol class="breadcrumb">
+        <li><a routerLink="/index"><i class="fa fa-home"></i> Home</a></li>
+        <li *ngIf="isnow==false"><a routerLink="/orderlist/now" class="active" (click)="Click()">Ongoing order</a></li>
+        <li *ngIf="isnow==true"><a routerLink="/orderlist/past" class="active" (click)="Click()">Completed order</a></li>
+        <li *ngIf="isnow==false" class="active">Completed order</li>
+        <li *ngIf="isnow==true" class="active">Ongoing order</li>
+      </ol>
+    </div>
+  </div>
+</div>
+<div class="col-lg-3">
+  <div style="margin-left: 190px">
+    <nz-range-picker name="dataRange" [(ngModel)]="dateRange" (ngModelChange)="onChange($event)" (nzOnOk)="DateOk()" nzAllowClear="false" nzShowTime></nz-range-picker>
+  </div>
+</div>
+
+<div class="col-lg-3" style="margin-left: 165px;width: 140px"><button nz-button nzType="default" (click)="clearDate()">Reset</button></div>
+<div class="col-lg-5">
+
+    <input nz-input style="width: 50%" placeholder="Search product here" [(ngModel)]="keyword">
+    <button nz-button  nzType="primary" (click)="ButtonClick()">Search</button>
+    <button nz-button  nzType="default" (click)="Reset()">Reset</button>
+      <!--<input  [(ngModel)]="keyword" name="keyword" type="text" placeholder="Search product..." style="width: 95%;">-->
+      <!--&lt;!&ndash;a routerLink="/cshop/0/-1/{{keyword}}"&ndash;&gt;-->
+      <!--<div><button><i class="fa fa-search" (click)="ButtonClick()"></i></button></div>-->
+</div>
+<!--<div class="col-lg-1">-->
+  <!--<div class="col-lg-3">-->
+    <!--<div class="search-box3">-->
+      <!--<form action="#">-->
+        <!--<button><i class="fa fa-trash" (click)="Reset()"></i></button>-->
+      <!--</form>-->
+    <!--</div>-->
+  <!--</div>-->
+<!--</div>-->
+<div *ngIf="isnow==true">
+  <div class="cart-main-area pt-0" style="background-color: white">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+          <form action="#">
+            <div class="table-content table-responsive">
+              <nz-table  #filterTable #nestedTable [nzData]="[{}]" [nzNoResult]="nothing" [nzPageSize]="10">
+                <thead>
+                <tr>
+                  <th nzShowSort nzCustomFilter [(nzSort)]="sortMap.id" (nzSortChange)="sortByid('id',$event)">Order id
+                    <nz-dropdown nzTrigger="click" [nzClickHide]="false" #dropdown>
+                      <i nz-icon type="smile-o" class="ant-table-filter-icon" [class.ant-table-filter-open]="dropdown.nzVisible" nz-dropdown></i>
+                      <div class="custom-filter-dropdown">
+                        <input type="text" nz-input placeholder="Search id" name="searchValue1" [(ngModel)]="searchValue1">
+                        <button nz-button [nzType]="'primary'" (click)="searchByid()">Search</button>
+                      </div>
+                    </nz-dropdown>
+                  </th>
+                  <th class="product-price">Create Time</th>
+                  <th class="product-price" nzCustomFilter>Receiver
+                    <nz-dropdown nzTrigger="click" [nzClickHide]="false" #dropdown>
+                      <i nz-icon type="smile-o" class="ant-table-filter-icon" [class.ant-table-filter-open]="dropdown.nzVisible" nz-dropdown></i>
+                      <div class="custom-filter-dropdown">
+                        <input type="text" nz-input placeholder="Search address" name="searchValueNick" [(ngModel)]="searchValueNick">
+                        <button nz-button [nzType]="'primary'" (click)="searchByNick()">Search</button>
+                      </div>
+                    </nz-dropdown>
+                  </th>
+                  <th class="product-price" nzCustomFilter>Phone
+                    <nz-dropdown nzTrigger="click" [nzClickHide]="false" #dropdown>
+                      <i nz-icon type="smile-o" class="ant-table-filter-icon" [class.ant-table-filter-open]="dropdown.nzVisible" nz-dropdown></i>
+                      <div class="custom-filter-dropdown">
+                        <input type="text" nz-input placeholder="Search address" name="searchValuePhone" [(ngModel)]="searchValuePhone">
+                        <button nz-button [nzType]="'primary'" (click)="searchByPhone()">Search</button>
+                      </div>
+                    </nz-dropdown>
+                  </th>
+                  <th class="product-name" nzCustomFilter>Deliver Address
+                    <nz-dropdown nzTrigger="click" [nzClickHide]="false" #dropdown>
+                      <i nz-icon type="smile-o" class="ant-table-filter-icon" [class.ant-table-filter-open]="dropdown.nzVisible" nz-dropdown></i>
+                      <div class="custom-filter-dropdown">
+                        <input type="text" nz-input placeholder="Search address" name="searchValue" [(ngModel)]="searchValue">
+                        <button nz-button [nzType]="'primary'" (click)="searchByAddress()">Search</button>
+                      </div>
+                    </nz-dropdown>
+                  </th>
+                  <th class="product-price">Order Status</th>
+                  <th class="product-price">Tracking Number</th>
+                  <th class="product-price">Received</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let ordernow of displayData">
+                  <td class="product-price" *ngIf="ordernow.delivered==false"><span class="amount"><a routerLink="/orderdetail/0/{{ordernow.id}}"><button nz-button [nzType]="primary">{{ordernow.id}}</button></a></span></td>
+                  <td class="product-price" *ngIf="ordernow.delivered==false">{{ordernow.create_time}}</td>
+                  <td class="product-price" *ngIf="ordernow.delivered==false">{{ordernow.deliver_receiver}}</td>
+                  <td class="product-price" *ngIf="ordernow.delivered==false" style="width: 160px">{{ordernow.deliver_phone}}</td>
+                  <td class="product-name" *ngIf="ordernow.delivered==false">{{ordernow.deliver_address}}</td>
+                  <td class="product-price" *ngIf="ordernow.delivered == false && ordernow.deliver_id < 0"><span class="amount">Processing Order</span></td>
+                  <td class="product-price" *ngIf="ordernow.delivered == false && ordernow.deliver_id == 0"><span class="amount">Preparing For Shipment </span></td>
+                  <td class="product-price" *ngIf="ordernow.delivered == false && ordernow.deliver_id > 0"><span class="amount">Shipped</span></td>
+                  <td class="product-price" *ngIf="ordernow.delivered == false && ordernow.deliver_id <= 0"><span class="amount">Unknown</span></td>
+                  <td class="product-price" *ngIf="ordernow.delivered == false && ordernow.deliver_id > 0"><span class="amount">{{arr[ordernow.deliver_id]}}<br/>({{Turn(ordernow.deliver_bill_no)}})</span></td>
+                  <td class="product-price" *ngIf="ordernow.delivered==false && ordernow.deliver_id <= 0"><button nz-button nzType="default" disabled style="color: grey">
+                    Confirm
+                  </button></td>
+                  <td class="product-price" *ngIf="ordernow.delivered == false && ordernow.deliver_id > 0"><button nz-button nzType="primary" nz-popconfirm nzTitle="Are you sure to confirm?" (nzOnConfirm)="Receive(ordernow.id)" (nzOnCancel)="cancel()"*ngIf="ordernow.delivered == false">
+                    Confirm
+                  </button></td>
+                </tr>
+                </tbody>
+              </nz-table>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="background-color: white"><br/><br/><br/><br/><br/></div>
+</div>
+
+<div *ngIf="isnow==false">
+  <div class="cart-main-area pt-0" style="background-color: white">
+    <div class="container">
+      <!--div-- class="row">
+        <div class="col-lg-3"></div>
+        <div class="header-bottom-middle">
+          <div class="search-box">
+            <form action="#">
+              <select name="#" id="select" (change)="getValue()">
+                <option value="-1">All Orders</option>
+                <option value="0">Search Year</option>
+                <option value="1">Search Month</option>
+                <option value="2">Search Day</option>
+              </select>
+              <select name="#" id="select2" (change)="getValue2()">
+                <option value="0">Product</option>
+                <option value="1">Shop</option>
+              </select>
+              <select name="#" id="select3" (change)="getValue2()">
+                <option value="0">Product</option>
+                <option value="1">Shop</option>
+              </select>
+              <div>
+                <button><i class="fa fa-search" (click)="ButtonClick()"></i></button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div-->
+      <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+          <form action="#">
+            <div class="table-content table-responsive">
+              <nz-table #basicTable [nzData]="[{}]" [nzNoResult]="nothing" [nzPageSize]="10">
+                <thead>
+                <tr>
+                  <th nzShowSort nzCustomFilter [(nzSort)]="sortMap.id" (nzSortChange)="sortByid('id',$event)">Order id
+                    <nz-dropdown nzTrigger="click" [nzClickHide]="false" #dropdown>
+                      <i nz-icon type="smile-o" class="ant-table-filter-icon" [class.ant-table-filter-open]="dropdown.nzVisible" nz-dropdown></i>
+                      <div class="custom-filter-dropdown">
+                        <input type="text" nz-input placeholder="Search id" name="searchValue1" [(ngModel)]="searchValue1">
+                        <button nz-button [nzType]="'primary'" (click)="searchByid()">Search</button>
+                      </div>
+                    </nz-dropdown>
+                  </th>
+                  <th class="product-price">Create Time</th>
+                  <th class="product-price" nzCustomFilter>Receiver
+                    <nz-dropdown nzTrigger="click" [nzClickHide]="false" #dropdown>
+                      <i nz-icon type="smile-o" class="ant-table-filter-icon" [class.ant-table-filter-open]="dropdown.nzVisible" nz-dropdown></i>
+                      <div class="custom-filter-dropdown">
+                        <input type="text" nz-input placeholder="Search address" name="searchValueNick" [(ngModel)]="searchValueNick">
+                        <button nz-button [nzType]="'primary'" (click)="searchByNick()">Search</button>
+                      </div>
+                    </nz-dropdown>
+                  </th>
+                  <th class="product-price" nzCustomFilter>Phone
+                    <nz-dropdown nzTrigger="click" [nzClickHide]="false" #dropdown>
+                      <i nz-icon type="smile-o" class="ant-table-filter-icon" [class.ant-table-filter-open]="dropdown.nzVisible" nz-dropdown></i>
+                      <div class="custom-filter-dropdown">
+                        <input type="text" nz-input placeholder="Search address" name="searchValuePhone" [(ngModel)]="searchValuePhone">
+                        <button nz-button [nzType]="'primary'" (click)="searchByPhone()">Search</button>
+                      </div>
+                    </nz-dropdown>
+                  </th>
+                  <th class="product-name" nzCustomFilter>Deliver Address
+                    <nz-dropdown nzTrigger="click" [nzClickHide]="false" #dropdown>
+                      <i nz-icon type="smile-o" class="ant-table-filter-icon" [class.ant-table-filter-open]="dropdown.nzVisible" nz-dropdown></i>
+                      <div class="custom-filter-dropdown">
+                        <input type="text" nz-input placeholder="Search address" name="searchValue" [(ngModel)]="searchValue">
+                        <button nz-button [nzType]="'primary'" (click)="searchByAddress()">Search</button>
+                      </div>
+                    </nz-dropdown>
+                  </th>
+                  <th class="product-price">Order Status</th>
+                  <th class="product-price">Tracking Number</th>
+                  <th class="product-price">Received</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let ordernow of displayData">
+                  <td class="product-price" *ngIf="ordernow.delivered == true"><span class="amount"><a routerLink="/orderdetail/1/{{ordernow.id}}"><button nz-button [nzType]="primary">{{ordernow.id}}</button></a></span></td>
+                  <td class="product-price" *ngIf="ordernow.delivered==true">{{ordernow.create_time}}</td>
+                  <td class="product-price" *ngIf="ordernow.delivered==true">{{ordernow.deliver_receiver}}</td>
+                  <td class="product-price" *ngIf="ordernow.delivered==true" style="width: 150px">{{ordernow.deliver_phone}}</td>
+                  <td class="product-name" *ngIf="ordernow.delivered == true">{{ordernow.deliver_address}}</td>
+                  <td class="product-price" *ngIf="ordernow.delivered == true && ordernow.deliver_id < 0"><span class="amount">Processing Order</span></td>
+                  <td class="product-price" *ngIf="ordernow.delivered == true && ordernow.deliver_id == 0"><span class="amount">Preparing For Shipment</span></td>
+                  <td class="product-price" *ngIf="ordernow.delivered == true && ordernow.deliver_id > 0"><span class="amount">Complete</span></td>
+                  <td class="product-price" *ngIf="ordernow.delivered == true && ordernow.deliver_id <= 0"><span class="amount">Unknown</span></td>
+                  <td class="product-price" *ngIf="ordernow.delivered == true && ordernow.deliver_id > 0"><span class="amount">{{arr[ordernow.deliver_id]}}<br/>({{Turn(ordernow.deliver_bill_no)}})</span></td>
+                  <td class="product-price" *ngIf="ordernow.delivered == true"><i class="material-icons" style="color: #1c7430;">
+                    beenhere
+                  </i></td>
+                </tr>
+                </tbody>
+              </nz-table>
+
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="background-color: white"><br/><br/><br/><br/><br/></div>
+</div>

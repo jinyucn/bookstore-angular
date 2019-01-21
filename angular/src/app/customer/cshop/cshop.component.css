@@ -1,0 +1,19 @@
+@import "../../../assets/css/shortcode/shoplist.css";
+
+.pro-sale-num {
+  padding-left: 100px;
+}
+
+.bottom2 {
+  color: #555555;
+  font-weight: 600;
+  font-size: 16px;
+  text-decoration: none;
+  outline: none !important;
+  touch-action: manipulation;
+  background-color: transparent;
+  text-decoration: none;
+  outline: none;
+  cursor: pointer;
+  transition: color 0.3s;
+}

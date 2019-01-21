@@ -1,0 +1,92 @@
+<!-- header-bottom-area-start -->
+<div class="header-bottom-area bg-color-1 ptb-25">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+        <div class="logo">
+          <a href="/index"><img src="../../../assets/img/logo.png" alt="" /></a>
+        </div>
+      </div>
+      <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+        <div class="header-top-right">
+          <div class="mainmenu">
+            <ul>
+              <li><a class="owner-title"> Shop Owner Center </a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- header-bottom-area-end -->
+<!-- account area start -->
+<div class="account-area pt-30 log padding" style="background-color: #fafafa">
+    <!-- breadcrumb start -->
+    <div class="breadcrumb-area">
+      <div class="container">
+        <ol class="breadcrumb">
+          <li><a  routerLink="/index"><i> ParkNShop Home</i> </a></li>
+          <li >Register</li>
+        </ol>
+      </div>
+    </div>
+    <!-- breadcrumb end -->
+    <div class="auto-container" style="background-color: #fafafa">
+      <div class="row clearfix">
+        <div class="col-md-3 col-lg-3 col-sm-3"></div>
+        <div class="col-md-6 col-lg-6 col-sm-6">
+          <div class="inner-column">
+            <div class="contact-form">
+                <div class="row clearfix">
+                    <mat-form-field style="width: 80%;">
+                      <mat-label style="font-family: Montserrat sans-serif;">UserName</mat-label>
+                      <input class="required" matInput type="text" [(ngModel)]="register_nick" name="register_nick" style="background: transparent;border:0;margin-bottom: 0">
+                      <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                    </mat-form-field>
+                  <mat-form-field style="width: 45%;padding-right: 10px" >
+                      <mat-label style="font-family: Montserrat sans-serif;">Telephone</mat-label>
+                      <input  matInput  type="text" [(ngModel)]="register_phone" name="register_phone" style="background: transparent;border:0;margin-bottom: 0">
+                      <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                  </mat-form-field>
+                    <button mat-mini-fab color="primary" (click)="send_verify_code()">Send</button>
+                     <mat-form-field style="width: 28%;padding-left: 10px">
+                      <mat-label style="font-family: Montserrat sans-serif;">Verification Code</mat-label>
+                      <input  matInput  type="text" [(ngModel)]="register_verifyCode" name="register_verifyCode" style="background-color: #fafafa;border:0;margin-bottom: 0">
+                      <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                    </mat-form-field>
+                    <mat-form-field style="width: 80%;background-color: #fafafa;border:0px" >
+                      <mat-label style="font-family: Montserrat sans-serif;">Email address</mat-label>
+                      <input  matInput  [(ngModel)]="register_email" name="register_email"  style="background-color: #fafafa;border:0px;margin-bottom: 0">
+                      <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                    </mat-form-field>
+                      <mat-form-field style="width: 80%;background-color: #fafafa;border:0px" >
+                      <mat-label style="font-family: Montserrat sans-serif;">Password (both number and alpha at lease 8 digits)</mat-label>
+                      <input  matInput [(ngModel)]="register_password" name="register_password" type="password" style="background-color: #fafafa;border:0px;margin-bottom: 0">
+                      <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                    </mat-form-field>
+                    <div style="width: 80%;background-color: #fafafa;border:0px">
+                      <mat-label style="font-family: Montserrat sans-serif;color: #737373">Address</mat-label>
+                      <br>
+                      <nz-cascader
+                        nzChangeOnSelect
+                        [nzOptions]="option"
+                        [(ngModel)]="values"
+                        name="values"
+                        (ngModelChange)="onChanges($event)" style="width: 45%;margin-bottom: 10px" aria-placeholder="Select Address">
+                      </nz-cascader>
+                      <mat-form-field style="width: 55%;background-color: #fafafa;border:0px;padding-left: 10px">
+                        <input style="border:0px;margin-bottom: 0;height:20px" matInput placeholder="Enter your street here" [(ngModel)]="street" name="street" >
+                        <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                      </mat-form-field>
+                    </div>
+                    <button mat-raised-button type="submit"  color="primary" (click)="register()">Register</button>
+                </div>
+
+            </div>
+          </div>
+          <br>
+        </div>
+      </div>
+    </div>
+</div>

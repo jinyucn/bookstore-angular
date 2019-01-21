@@ -1,0 +1,131 @@
+
+<div class="header-top-area black-bg ptb-7 hidden-xs">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-lg-offset-0">
+        <div class="header-top-right">
+          <ul *ngIf="shopper">
+            <li><a routerLink="/Notification"><i class="fa fa-paper-plane"></i> ShopOwnerCenter </a>
+            </li>
+
+          </ul>
+          <ul *ngIf="show">
+            <li><a routerLink="/login"><i class="fa fa-paper-plane"></i> ShopOwner Login </a>
+            </li>
+
+          </ul>
+          <ul *ngIf="show">
+            <li class="slide-toggle"><a routerLink="/clogin"><i class="fa fa-user"></i> Customer Login</a>
+              <!--<ul class="show-toggle">-->
+                <!--<li><a href="#">register</a></li>-->
+                <!--<li><a href="#">login</a></li>-->
+              <!--</ul>-->
+            </li>
+          </ul>
+          <ul>
+            <li>
+              <button nz-button nzType="default" nzGhost nzValue="small" nz-popconfirm nzTitle="Are you sure to logout?" (nzOnConfirm)="logout()" (nzOnCancel)="cancel()" *ngIf="!show">Logout</button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- header-top-area-end -->
+<!-- header-bottom-area-start -->
+<div class="header-bottom-area bg-color-1 ptb-25">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+        <div class="logo">
+          <a routerLink="/index"><img src="/assets/img/logo.png" alt="" /></a>
+        </div>
+      </div>
+      <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+        <div class="header-bottom-middle">
+          <div class="search-box">
+            <form action="#">
+              <select name="#" id="select" (change)="getValue()">
+                <option value="-1">All categories</option>
+                <option value="0">TV& Home Theater</option>
+                <option value="1">Computers & Tablets</option>
+                <option value="2">Cell Phones</option>
+                <option value="3">Cameras & Camcorders</option>
+                <option value="4">Audio</option>
+                <option value="5">Car Electronics & GPS</option>
+                <option value="6">Video, Games, Movies & Music</option>
+                <option value="7">Health, Fitness & Sports</option>
+                <option value="8">Home & Office</option>
+              </select>
+              <select name="#" id="select2" (change)="getValue2()" >
+                <option value="0">Product</option>
+                <option value="1">Shop</option>
+              </select>
+              <input [(ngModel)]="keyword" name="keyword" type="text" placeholder="Search...">
+              <!--a routerLink="/cshop/0/-1/{{keyword}}"-->
+              <div>
+            <button (click)="ButtonClick()"><i class="fa fa-search" ></i></button>
+              </div>
+              <!--a-->
+            </form>
+          </div>
+        </div>
+        <div class="header-bottom-right">
+          <div class="left-cart">
+            <div class="header-compire">
+              <a routerLink="/cmywish/shop"><i class="fa fa-heart"></i> My Favorite  </a>
+            </div>
+          </div>
+          <div class="shop-cart-area">
+            <div class="top-cart-wrapper">
+              <div class="block-cart">
+                <a routerLink="/cart">
+                  <div class="top-cart-title">
+                    <a>
+                      <span class="title-cart">my cart</span>
+                      <span class="count-item">{{cartnumber}} items</span>
+                      <span class="price">${{allprice}}</span>
+                    </a>
+                  </div>
+                </a>
+                <div class="top-cart-content">
+                  <ol class="mini-products-list">
+                    <!-- single item -->
+                    <li *ngFor="let mycart of cproductstate.data">
+                      <a class="product-image">
+                        <img alt="" src="http://47.106.108.89:8086/static/{{mycart.picFilename}}">
+                      </a>
+                      <div class="product-details">
+                        <p class="cartproduct-name">
+                          <a>{{mycart.title}}</a>
+                        </p>
+                        <strong class="qty">nums:{{mycart.nums}}</strong>
+                        <span class="sig-price">${{mycart.price}}</span>
+                      </div>
+                      <div class="pro-action">
+                        <a class="btn-remove" (click)="REmoveCart(mycart.id)">
+                          <i class="fa fa-times"></i>remove</a>
+                      </div>
+                    </li>
+                    <!-- single item -->
+
+                  </ol>
+                  <div class="top-subtotal">
+                    Subtotal: <span class="sig-price">${{allprice}}</span>
+                  </div>
+                  <a routerLink="/cart">
+                    <div class="cart-actions">
+                      <button><span>Checkout</span></button>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- header-bottom-area-end -->

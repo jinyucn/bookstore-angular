@@ -1,0 +1,77 @@
+<app-so-header></app-so-header>
+<!--menu-area-start-->
+<div class="mainmenu-area bg-color-2 hidden-xs hidden-sm">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3">
+        <app-so-main-menu></app-so-main-menu>
+      </div>
+      <div class="col-md-9 pad">
+        <div class="breadcrumb">
+          <li><a class="color2" routerLink="/index"><i class="fa fa-home color1"></i> Home </a></li>
+          <li><a class="color2" routerLink="/ShopOwnerCenter">ShopOwnerCenter </a></li>
+          <li class="active color1">Edit Shop </li>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--menu-area-end-->
+<!--main-area-start-->
+<div style="background: white">
+
+  <div>
+    <div class="container">
+      <div>
+        <div class="col-md-3">
+        </div>
+        <div class="col-md-9 pad2">
+          <mat-card >
+            <mat-form-field class="example-full-width">
+              <input style="border:0px" matInput placeholder="New Phone" value={{oldPhone}} [(ngModel)]="newPhone">
+              <mat-icon matSuffix>mode_edit</mat-icon>
+            </mat-form-field>
+            <br>
+            <mat-form-field class="example-full-width">
+              <input style="border:0px" matInput placeholder="New Email" value={{oldEmail}} [(ngModel)]="newEmail">
+              <mat-icon matSuffix>mode_edit</mat-icon>
+            </mat-form-field>
+            <br>
+            <p>New Address</p>
+            <nz-cascader
+              nzChangeOnSelect
+              [nzOptions]="option"
+              [(ngModel)]="values"
+              name="values"
+              (ngModelChange)="onChanges($event)" style="width: 300px;margin-bottom: 10px">
+            </nz-cascader>
+            <mat-form-field class="example-full-width">
+              <input style="border:0px" matInput placeholder="Enter your street here" [(ngModel)]="street" name="street" >
+              <mat-icon matSuffix>mode_edit</mat-icon>
+            </mat-form-field>
+            <button mat-fab color="primary" (click)="editShop(newPhone,newEmail)">Submit</button>
+          </mat-card>
+        </div>
+    </div>
+  </div>
+</div>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+</div>
+
+<!--main-area-end-->

@@ -1,0 +1,619 @@
+<app-so-header></app-so-header>
+
+<!--menu-area-start-->
+<div class="mainmenu-area bg-color-2 hidden-xs hidden-sm">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3">
+        <app-so-main-menu></app-so-main-menu>
+      </div>
+      <div class="col-md-9 pad">
+        <div class="breadcrumb">
+          <li><a class="color2" routerLink="/index"><i class="fa fa-home color1"></i> Home </a></li>
+          <li><a class="color2" routerLink="/ShopOwnerCenter">ShopOwnerCenter </a></li>
+          <li class="active color1"> Advertisement </li>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--menu-area-end-->
+
+<!--main-area-start-->
+<div style="background: white">
+  <div class="slider-area">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3">
+        </div>
+        <div class="col-md-9">
+          <mat-card style="background: #F7F7F7">
+            <mat-tab-group>
+
+              <mat-tab label="Homepage Product List">
+                <div>
+                  <div class="row">
+                    <div class="col-md-4">
+                      <mat-form-field>
+                        <input style="border:0;" matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter by title">
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-8">
+                      <br>
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      <button mat-icon-button matTooltip="Go to my shop homepage" color="accent" routerLink="/cproduct/0/{{shopId}}/shop"><mat-icon> business</mat-icon></button>&nbsp;&nbsp;&nbsp;&nbsp;
+                      <button mat-raised-button color="primary" class="theme-btn btn-style-two" *ngIf="topFlag[0]" (click)="showProd(Product[0])">{{Product[0]}}</button>&nbsp;&nbsp;
+                      <button mat-raised-button color="primary" class="theme-btn btn-style-two" *ngIf="topFlag[1]" (click)="showProd(Product[1])">{{Product[1]}}</button>&nbsp;&nbsp;
+                      <button mat-raised-button color="primary" class="theme-btn btn-style-two" *ngIf="topFlag[2]" (click)="showProd(Product[2])">{{Product[2]}}</button>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="mat-elevation-z8" style="width:99%">
+                  <mat-table [dataSource]="dataSource" matSort #sortTable="matSort">
+                    <ng-container matColumnDef="select">
+                      <mat-header-cell *matHeaderCellDef>
+                        Promotion
+                      </mat-header-cell>
+                      <mat-cell *matCellDef="let row">
+                        &nbsp;&nbsp;&nbsp;
+                        <button id="top{{row.id}}" mat-raised-button color="primary" class="theme-btn btn-style-two" (click)="Topper(row)">TOP</button>&nbsp;&nbsp;&nbsp;
+                        <button id="cancel{{row.id}}" disabled="true" mat-raised-button color="basic" class="theme-btn btn-style-two" (click)="Cancel(row)">CANCEL</button>
+                      </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="id">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
+                      <mat-cell *matCellDef="let row">{{ row.id }}</mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="title">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header>TITLE</mat-header-cell>
+                      <mat-cell *matCellDef="let row">{{ row.title }}</mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="price">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header>PRICE($)</mat-header-cell>
+                      <mat-cell *matCellDef="let row">{{ row.price }}</mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="picFilename">
+                      <mat-header-cell *matHeaderCellDef>IMAGE</mat-header-cell>
+                      <mat-cell *matCellDef="let row"><img src="http://47.106.108.89:8086/static/{{row.picFilename}}"></mat-cell>
+                    </ng-container>
+
+                    <mat-header-row *matHeaderRowDef="['id', 'title', 'price','picFilename', 'select' ]"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: ['id', 'title', 'price','picFilename', 'select']"></mat-row>
+                  </mat-table>
+
+                  <mat-paginator #paginator  [length]="totalCount" [pageIndex]="0" [pageSize]="10" [pageSizeOptions]="[5, 10, 25]"></mat-paginator>
+
+                </div>
+                <br>
+              </mat-tab>
+
+              <mat-tab label="Ad Bidding System">
+                <br>
+                <mat-card>
+                  <div  style="height: 40px;padding: 0 15px;">
+                    <div class="floatleft">
+                      <button mat-raised-button color="primary" class="theme-btn btn-style-two" (click)="getShopAd()">Refresh</button>
+                    </div>
+                    <div class="floatright" *ngIf="timeFlag">
+                      <h5 style="color:#626262;font-family: 'American Typewriter'">Countdown to Closing:</h5>
+                      <div style="color:#626262;font-family: 'American Typewriter';text-align: center">{{chour}}:{{cminute}}:{{csecond}}</div>
+                    </div>
+                    <div class="floatright" *ngIf="!timeFlag">
+                      <h5 style="color:#626262;font-family: 'American Typewriter'">Ad bid deadline is 16:00.</h5>
+                      <h5 style="color:#626262;font-family: 'American Typewriter'">Next start time is tomorrow 00:00.</h5>
+                    </div>
+                  </div>
+
+                  <mat-grid-list cols="2" rowHeight="700px">
+                    <mat-grid-tile>
+                      <div class="post-tile">
+                        <label class="post-tile">Shop AD Top 8</label><br>
+                        <table mat-table [dataSource]="shopDS" class="mat-elevation-z4">
+
+                          <!--<ng-container matColumnDef="shopId">-->
+                            <!--<mat-header-cell *matHeaderCellDef>ShopId</mat-header-cell>-->
+                            <!--<mat-cell *matCellDef="let row">{{row.shopId}}</mat-cell>-->
+                          <!--</ng-container>-->
+
+                          <ng-container matColumnDef="title">
+                            <mat-header-cell *matHeaderCellDef>AdTitle</mat-header-cell>
+                            <mat-cell *matCellDef="let row">
+                              {{row.tittle}}
+                              <button mat-icon-button matTooltip="View details" color="primary" (click)="showAdDetailDialog(row,'SHOP_AD')" *ngIf="row.shopId==shopId"><mat-icon>more_horiz</mat-icon></button>
+                            </mat-cell>
+                          </ng-container>
+
+                          <ng-container matColumnDef="price">
+                            <mat-header-cell *matHeaderCellDef>Price</mat-header-cell>
+                            <mat-cell *matCellDef="let row">
+                              {{row.price}}
+                              <button mat-icon-button matTooltip="5% increase each time" color="primary" (click)="showAddPriceDialog(row,'SHOP_AD')" *ngIf="(!row.permitted)&&(row.shopId==shopId)&&timeFlag"><mat-icon>add_circle</mat-icon></button>
+                            </mat-cell>
+                          </ng-container>
+
+                          <ng-container matColumnDef="status">
+                            <mat-header-cell *matHeaderCellDef>IsPermitted</mat-header-cell>
+                            <mat-cell *matCellDef="let row">
+                              <label *ngIf="row.permitted">YES</label>
+                              <label *ngIf="!row.permitted">NO</label>
+                            </mat-cell>
+                          </ng-container>
+
+                          <mat-header-row *matHeaderRowDef="['title','price','status']"></mat-header-row>
+                          <mat-row *matRowDef="let row; columns:['title','price','status']"></mat-row>
+
+                        </table>
+                      </div>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                      <div class="post-tile">
+                        <label class="post-tile">Product AD Top 12</label><br>
+                        <table mat-table [dataSource]="productDS" class="mat-elevation-z4">
+
+                          <!--<ng-container matColumnDef="shopId">-->
+                            <!--<mat-header-cell *matHeaderCellDef>ShopId</mat-header-cell>-->
+                            <!--<mat-cell *matCellDef="let row">{{row.shopId}}</mat-cell>-->
+                          <!--</ng-container>-->
+
+                          <ng-container matColumnDef="productId">
+                            <mat-header-cell *matHeaderCellDef>ProductId</mat-header-cell>
+                            <mat-cell *matCellDef="let row">{{row.productId}}</mat-cell>
+                          </ng-container>
+
+                          <ng-container matColumnDef="title">
+                            <mat-header-cell *matHeaderCellDef>AdTitle</mat-header-cell>
+                            <mat-cell *matCellDef="let row">
+                              {{row.tittle}}
+                              <button mat-icon-button matTooltip="View details" color="primary" (click)="showAdDetailDialog(row,'PRODUCT_AD')" *ngIf="row.shopId==shopId"><mat-icon>more_horiz</mat-icon></button>
+                            </mat-cell>
+                          </ng-container>
+
+                          <ng-container matColumnDef="price">
+                            <mat-header-cell *matHeaderCellDef>Price</mat-header-cell>
+                            <mat-cell *matCellDef="let row">
+                              {{row.price}}
+                              <button mat-icon-button matTooltip="5% increase each time" color="primary" (click)="showAddPriceDialog(row,'PRODUCT_AD')" *ngIf="(!row.permitted)&&(row.shopId==shopId)&&timeFlag"><mat-icon>add_circle</mat-icon></button>
+                            </mat-cell>
+                          </ng-container>
+
+                          <ng-container matColumnDef="status">
+                            <mat-header-cell *matHeaderCellDef>IsPermitted</mat-header-cell>
+                            <mat-cell *matCellDef="let row">
+                              <label *ngIf="row.permitted">YES</label>
+                              <label *ngIf="!row.permitted">NO</label>
+                            </mat-cell>
+                          </ng-container>
+
+                          <mat-header-row *matHeaderRowDef="['productId','title','price','status']"></mat-header-row>
+                          <mat-row *matRowDef="let row; columns:['productId','title','price','status']"></mat-row>
+
+                        </table>
+                      </div>
+                    </mat-grid-tile>
+                  </mat-grid-list>
+                </mat-card>
+                <br>
+              </mat-tab>
+
+              <mat-tab label="Apply Shop Ad">
+                <br>
+                <mat-card>
+                  <div>
+                    <mat-form-field class="input-width1" >
+                      <input style="border: 0px" type="text" name="title" matInput placeholder="TITLE" [(ngModel)]="stitle"/>
+                      <mat-hint>Your AD title.</mat-hint>
+                    </mat-form-field>
+                  </div>
+                  <br>
+                  <div>
+                    <mat-form-field class="input-width1">
+                      <textarea style="border: 0px" rows="6" name="Description" matInput placeholder="DESCRIPTION" [(ngModel)]="sdescription"></textarea>
+                      <mat-hint>Describe your AD.</mat-hint>
+                    </mat-form-field>
+                  </div>
+                  <br>
+                  <div>
+                    <mat-form-field class="input-width1" >
+                      <input style="border: 0px" type="number" name="price" matInput placeholder="PRICE" [(ngModel)]="sprice"/>
+                      <mat-hint>
+                        At least $500. Your balance: {{balance}}<span style="color: red" *ngIf="balance < sprice">(Your balance is not enough)</span>
+                        <span style="color: #344e86;text-decoration: #344e86;cursor:pointer;" (click)="goToAccount()" *ngIf="balance < sprice">RECHARGE</span>
+                      </mat-hint>
+
+                    </mat-form-field>
+                  </div>
+                  <br>
+                  <!--<div>-->
+                    <!--<mat-form-field class="input-width1" >-->
+                      <!--<input matInput [matDatepicker]="picker" placeholder="AD TIME" required [(ngModel)]="sdate">-->
+                      <!--<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>-->
+                      <!--<mat-datepicker #picker></mat-datepicker>-->
+                    <!--</mat-form-field>-->
+                  <!--</div>-->
+                  <!--<br>-->
+                  <div>
+                    <p>
+                      <label>IMAGE</label>
+                    </p>
+                    <div class="row">
+                      <div class="col-md-4">
+                        <h5>Select files</h5>
+                        <div ng2FileDrop
+                             [ngClass]="{'nv-file-over': hasBaseDropZoneOver}"
+                             (fileOver)="fileOverBase($event)"
+                             [uploader]="uploader"
+                             class="well my-drop-zone">
+                          Drop zone
+                        </div>
+                        <input type="file" ng2FileSelect [uploader]="uploader" (change)="selectedFileOnChanged($event)"/>
+                      </div>
+                      <div class="col-md-8" style="margin-bottom: 40px">
+                        <h5>Upload queue</h5>
+                        <table class="table">
+                          <thead>
+                          <tr>
+                            <th style="max-width: 150px">Name</th>
+                            <th style="max-width: 50px">Size</th>
+                            <th>Progress</th>
+                          </tr>
+                          </thead>
+                          <tbody>
+                          <tr *ngFor="let item of uploader.queue">
+                            <td style="max-width: 150px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;"><strong>{{ item?.file?.name }}</strong></td>
+                            <td style="max-width: 50px" *ngIf="uploader.isHTML5" nowrap>{{ item?.file?.size/1024/1024 | number:'.2' }} MB</td>
+                            <td *ngIf="uploader.isHTML5">
+                              <div class="progress" style="margin-bottom: 0;">
+                                <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': item.progress + '%' }"></div>
+                              </div>
+                            </td>
+                            <td class="text-center">
+                              <span *ngIf="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>
+                              <span *ngIf="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>
+                              <span *ngIf="item.isError"><i class="glyphicon glyphicon-remove"></i></span>
+                            </td>
+                            <td nowrap>
+                              <button type="button" class="btn btn-success btn-xs"
+                                      (click)="uploadShopPic(item)" [disabled]="item.isReady || item.isUploading || item.isSuccess">
+                                <span class="glyphicon glyphicon-upload"></span> Upload
+                              </button>
+                              <button type="button" class="btn btn-warning btn-xs"
+                                      (click)="item.cancel()" [disabled]="!item.isUploading">
+                                <span class="glyphicon glyphicon-ban-circle"></span> Cancel
+                              </button>
+                              <button type="button" class="btn btn-danger btn-xs"
+                                      (click)="item.remove()">
+                                <span class="glyphicon glyphicon-trash"></span> Remove
+                              </button>
+                            </td>
+                          </tr>
+                          </tbody>
+                        </table>
+                        <div>
+                          <div>
+                            Queue progress:
+                            <div class="progress" style="">
+                              <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <button mat-raised-button color="primary" class="theme-btn btn-style-two" (click)="applyShopAD()">APPLY</button>
+                  </div>
+                </mat-card>
+                <br>
+
+              </mat-tab>
+
+              <mat-tab label="Apply Product Ad">
+                <br>
+                <mat-card>
+                  <div>
+                    <mat-form-field class="input-width1" >
+                      <input style="border: 0px" type="text" name="title" matInput placeholder="TITLE" [(ngModel)]="ptitle"/>
+                      <mat-hint>Your AD title.</mat-hint>
+                    </mat-form-field>
+                  </div>
+                  <br>
+                  <div>
+                    <mat-form-field class="input-width1">
+                      <input style="border: 0px" type="text" name="product" matInput placeholder="PRODUCT" [formControl]="myControl" [matAutocomplete]="products" [(ngModel)]="productIdstr"/>
+                      <mat-autocomplete #products="matAutocomplete">
+                        <mat-option *ngFor="let product of products$" [value]="product.id+'-'+product.title">
+                          {{product.id}}-{{ product.title }}
+                        </mat-option>
+                      </mat-autocomplete>
+                      <mat-hint>Pick a product.</mat-hint>
+                    </mat-form-field>
+
+                  </div>
+                  <br>
+                  <div>
+                    <mat-form-field class="input-width1">
+                      <textarea style="border: 0px" rows="6" name="Description" matInput placeholder="DESCRIPTION" [(ngModel)]="pdescription"></textarea>
+                      <mat-hint>Describe your AD.</mat-hint>
+                    </mat-form-field>
+                  </div>
+                  <br>
+                  <div>
+                    <mat-form-field class="input-width1" >
+                      <input style="border: 0px" type="number" name="price" matInput placeholder="PRICE" [(ngModel)]="pprice"/>
+                      <mat-hint>
+                        At least $1000. Your balance: {{balance}}<span style="color: red" *ngIf="balance < pprice">(Your balance is not enough)</span>
+                        <span style="color: #344e86;text-decoration: #344e86;cursor:pointer;" (click)="goToAccount()" *ngIf="balance < pprice">RECHARGE</span>
+                      </mat-hint>
+                    </mat-form-field>
+                  </div>
+                  <br>
+                  <!--<div>-->
+                    <!--<mat-form-field class="input-width1" >-->
+                      <!--<input matInput [matDatepicker]="ppicker" placeholder="AD TIME" required [(ngModel)]="pdate">-->
+                      <!--<mat-datepicker-toggle matSuffix [for]="ppicker"></mat-datepicker-toggle>-->
+                      <!--<mat-datepicker #ppicker></mat-datepicker>-->
+                    <!--</mat-form-field>-->
+                  <!--</div>-->
+                  <!--<br>-->
+                  <div>
+                    <p>
+                      <label>IMAGE</label>
+                    </p>
+                    <div class="row">
+                      <div class="col-md-4">
+                        <h5>Select files</h5>
+                        <div ng2FileDrop
+                             [ngClass]="{'nv-file-over': hasBaseDropZoneOver}"
+                             (fileOver)="fileOverBase($event)"
+                             [uploader]="uploader"
+                             class="well my-drop-zone">
+                          Drop zone
+                        </div>
+                        <input type="file" ng2FileSelect [uploader]="uploader" (change)="selectedFileOnChanged($event)"/>
+                      </div>
+                      <div class="col-md-8" style="margin-bottom: 40px">
+                        <h5>Upload queue</h5>
+                        <table class="table">
+                          <thead>
+                          <tr>
+                            <th style="max-width: 150px">Name</th>
+                            <th style="max-width: 50px">Size</th>
+                            <th>Progress</th>
+                          </tr>
+                          </thead>
+                          <tbody>
+                          <tr *ngFor="let item of uploader.queue">
+                            <td style="max-width: 150px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;"><strong>{{ item?.file?.name }}</strong></td>
+                            <td style="max-width: 50px" *ngIf="uploader.isHTML5" nowrap>{{ item?.file?.size/1024/1024 | number:'.2' }} MB</td>
+                            <td *ngIf="uploader.isHTML5">
+                              <div class="progress" style="margin-bottom: 0;">
+                                <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': item.progress + '%' }"></div>
+                              </div>
+                            </td>
+                            <td class="text-center">
+                              <span *ngIf="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>
+                              <span *ngIf="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>
+                              <span *ngIf="item.isError"><i class="glyphicon glyphicon-remove"></i></span>
+                            </td>
+                            <td nowrap>
+                              <button type="button" class="btn btn-success btn-xs"
+                                      (click)="uploadProdPic(item)" [disabled]="item.isReady || item.isUploading || item.isSuccess">
+                                <span class="glyphicon glyphicon-upload"></span> Upload
+                              </button>
+                              <button type="button" class="btn btn-warning btn-xs"
+                                      (click)="item.cancel()" [disabled]="!item.isUploading">
+                                <span class="glyphicon glyphicon-ban-circle"></span> Cancel
+                              </button>
+                              <button type="button" class="btn btn-danger btn-xs"
+                                      (click)="item.remove()">
+                                <span class="glyphicon glyphicon-trash"></span> Remove
+                              </button>
+                            </td>
+                          </tr>
+                          </tbody>
+                        </table>
+                        <div>
+                          <div>
+                            Queue progress:
+                            <div class="progress" style="">
+                              <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <button mat-raised-button color="primary" class="theme-btn btn-style-two" (click)="applyProductAD()">APPLY</button>
+                  </div>
+                </mat-card>
+                <br>
+              </mat-tab>
+
+              <mat-tab label="Ad History">
+                <br>
+                <mat-card>
+                  <div  style="height: 40px;padding: 10px 0;">
+                    <div class="floatleft" style="padding: 0 15px;font-family: 'American Typewriter'">
+                      <mat-button-toggle-group appearance="legacy" #formatAlignGroup="matButtonToggleGroup">
+                        <mat-button-toggle value="day" checked="true" (change)="showShopAdHistory()">
+                          &nbsp;ShopAd&nbsp;
+                        </mat-button-toggle>
+                        <mat-button-toggle value="week" (change)="showProductAdHistory()">
+                          &nbsp;ProductAd&nbsp;
+                        </mat-button-toggle>
+                      </mat-button-toggle-group>
+                    </div>
+                    <div>
+                      <button mat-raised-button color="primary" id="hisRefresh" class="theme-btn btn-style-two" (click)="getAdHistory()">Refresh</button>
+                    </div>
+                  </div>
+                  <br>
+                  <div [hidden]="showShopHis">
+                    <mat-form-field style="width:15%;padding: 0 10px;">
+                      <mat-select placeholder="Select" [(value)]="selectedSH">
+                        <mat-option value="All">ALL</mat-option>
+                        <mat-option value="Title">Title</mat-option>
+                        <mat-option value="Content">Content</mat-option>
+                        <!--<mat-option value="Price">Price</mat-option>-->
+                        <mat-option value="LaunchDate">LaunchDate</mat-option>
+                        <!--<mat-option value="IsPermitted">IsPermitted</mat-option>-->
+                      </mat-select>
+                    </mat-form-field>
+                    <mat-form-field style="width:30%">
+                      <input style="height: 15px;" matInput (keyup)="applyFilterSH($event.target.value)" placeholder="Filter">
+                    </mat-form-field>
+                    <div class="mat-elevation-z8"  style="width:99%">
+                      <table mat-table [dataSource]="shopHistoryDS" matSort #sortTableSH="matSort" multiTemplateDataRows>
+
+                        <ng-container matColumnDef="histitle">
+                          <mat-header-cell *matHeaderCellDef mat-sort-header="title">Title</mat-header-cell>
+                          <mat-cell *matCellDef="let row">{{row.title}}</mat-cell>
+                        </ng-container>
+
+                        <ng-container matColumnDef="hisprice">
+                          <mat-header-cell *matHeaderCellDef mat-sort-header="price">Price</mat-header-cell>
+                          <mat-cell *matCellDef="let row">{{row.price}}</mat-cell>
+                        </ng-container>
+
+                        <ng-container matColumnDef="hisdate">
+                          <mat-header-cell *matHeaderCellDef mat-sort-header="date">LaunchDate</mat-header-cell>
+                          <mat-cell *matCellDef="let row">{{row.date}}</mat-cell>
+                        </ng-container>
+
+                        <ng-container matColumnDef="hisstatus">
+                          <mat-header-cell *matHeaderCellDef mat-sort-header="permitted">IsPermitted</mat-header-cell>
+                          <mat-cell *matCellDef="let row">
+                            <label *ngIf="row.permitted">YES</label>
+                            <label *ngIf="!row.permitted">NO</label>
+                          </mat-cell>
+                        </ng-container>
+
+                        <ng-container matColumnDef="hisdetail">
+                          <mat-cell *matCellDef="let row" aria-colspan="columnsToDisplay.length">
+                            <div class="element-detail" [@detailExpand]="row == expandedElement ? 'expanded' : 'collapsed'">
+                              <div class="element-diagram">
+                                <img src="http://47.106.108.89:8086/static/{{row.image}}">
+                              </div>
+                              <div class="element-description">{{row.content}}</div>
+                            </div>
+                          </mat-cell>
+                        </ng-container>
+
+                        <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
+                        <mat-row *matRowDef="let row; columns:columnsToDisplay"
+                                 class="element-row"
+                                 [class.expanded-row]="expandedElement === row"
+                                 (click)="expandedElement = expandedElement === row ? null : row">
+                        </mat-row>
+                        <mat-row style="min-height: 0" *matRowDef="let row; columns:['hisdetail']"></mat-row>
+
+                      </table>
+
+                      <mat-paginator #paginatorSH [length]="shopAdHisCount" [pageIndex]="0" [pageSize]="10" [pageSizeOptions]="[5, 10, 25]"></mat-paginator>
+
+                    </div>
+                  </div>
+
+                  <div [hidden]="showProdHis">
+                    <mat-form-field style="width:15%;padding: 0 10px;">
+                      <mat-select placeholder="Select" [(value)]="selectedPH">
+                        <mat-option value="All">ALL</mat-option>
+                        <mat-option value="Title">Title</mat-option>
+                        <mat-option value="Content">Content</mat-option>
+                        <!--<mat-option value="Price">Price</mat-option>-->
+                        <mat-option value="LaunchDate">LaunchDate</mat-option>
+                        <!--<mat-option value="IsPermitted">IsPermitted</mat-option>-->
+                      </mat-select>
+                    </mat-form-field>
+                    <mat-form-field style="width:30%">
+                      <input style="height: 15px;" matInput (keyup)="applyFilterPH($event.target.value)" placeholder="Filter">
+                    </mat-form-field>
+                    <div class="mat-elevation-z8"  style="width:99%">
+                      <table mat-table [dataSource]="productHistoryDS" matSort #sortTablePH="matSort" multiTemplateDataRows>
+
+                        <ng-container matColumnDef="histitle">
+                          <mat-header-cell *matHeaderCellDef mat-sort-header="title">Title</mat-header-cell>
+                          <mat-cell *matCellDef="let row">{{row.title}}</mat-cell>
+                        </ng-container>
+
+                        <ng-container matColumnDef="hisprice">
+                          <mat-header-cell *matHeaderCellDef mat-sort-header="price">Price</mat-header-cell>
+                          <mat-cell *matCellDef="let row">{{row.price}}</mat-cell>
+                        </ng-container>
+
+                        <ng-container matColumnDef="hisdate">
+                          <mat-header-cell *matHeaderCellDef mat-sort-header="date">LaunchDate</mat-header-cell>
+                          <mat-cell *matCellDef="let row">{{row.date}}</mat-cell>
+                        </ng-container>
+
+                        <ng-container matColumnDef="hisstatus">
+                          <mat-header-cell *matHeaderCellDef mat-sort-header="permitted">IsPermitted</mat-header-cell>
+                          <mat-cell *matCellDef="let row">
+                            <label *ngIf="row.permitted">YES</label>
+                            <label *ngIf="!row.permitted">NO</label>
+                          </mat-cell>
+                        </ng-container>
+
+                        <ng-container matColumnDef="hisdetail">
+                          <mat-cell *matCellDef="let row" aria-colspan="columnsToDisplay.length">
+                            <div class="element-detail" [@detailExpand]="row == expandedElement2 ? 'expanded' : 'collapsed'">
+                              <div class="element-diagram">
+                                <img src="http://47.106.108.89:8086/static/{{row.image}}">
+                              </div>
+                              <div class="element-description">
+                                <p>{{row.content}}</p>
+                                <p>product Id: {{row.prodId}}</p>
+                                <p *ngIf="row.prodTitle">product name: {{row.prodTitle}}</p>
+                                <p *ngIf="row.prodPrice">product price: {{row.prodPrice}}</p>
+                                <p *ngIf="row.mesg">message: {{row.mesg}}</p>
+                              </div>
+                            </div>
+                          </mat-cell>
+                        </ng-container>
+
+                        <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
+                        <mat-row *matRowDef="let row; columns:columnsToDisplay"
+                                 class="element-row"
+                                 [class.expanded-row]="expandedElement2 === row"
+                                 (click)="expandedElement2 = expandedElement2 === row ? null : row">
+                        </mat-row>
+                        <mat-row style="min-height: 0" *matRowDef="let row; columns:['hisdetail']"></mat-row>
+
+                      </table>
+
+                      <mat-paginator #paginatorPH [length]="prodAdHisCount" [pageIndex]="0" [pageSize]="10" [pageSizeOptions]="[5, 10, 25]"></mat-paginator>
+
+                    </div>
+                  </div>
+
+                  <br>
+                </mat-card>
+                <br>
+              </mat-tab>
+            </mat-tab-group>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+</div>
+<!--main-area-end-->
+
+
+

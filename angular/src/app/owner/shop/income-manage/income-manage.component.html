@@ -1,0 +1,86 @@
+<app-so-header></app-so-header>
+<!--menu-area-start-->
+<div class="mainmenu-area bg-color-2 hidden-xs hidden-sm">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3">
+        <app-so-main-menu></app-so-main-menu>
+      </div>
+      <div class="col-md-9 pad">
+        <div class="breadcrumb">
+          <li><a class="color2" routerLink="/index"><i class="fa fa-home color1"></i> Home </a></li>
+          <li><a class="color2" routerLink="/ShopOwnerCenter">ShopOwnerCenter </a></li>
+          <li class="active color1"> Income </li>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--menu-area-end-->
+<!--main-area-start-->
+<div style="background: white">
+
+  <div class="slider-area">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3">
+        </div>
+        <div class="col-md-9">
+          <div class="ant-col-md-24">
+
+            <div style="padding: 0 40px;font-family: 'American Typewriter'">
+              <mat-button-toggle-group appearance="legacy" #formatAlignGroup="matButtonToggleGroup">
+                <mat-button-toggle value=1 checked="true" (change)="showDayIncome()">
+                  &nbsp;Day&nbsp;
+                </mat-button-toggle>
+                <mat-button-toggle value=2 (change)="showWeekIncome()">
+                  &nbsp;Week&nbsp;
+                </mat-button-toggle>
+                <mat-button-toggle value=3 (change)="showMonthIncome()">
+                  Month
+                </mat-button-toggle>
+                <mat-button-toggle value=4 (change)="showYearIncome()">
+                  &nbsp;Year&nbsp;
+                </mat-button-toggle>
+              </mat-button-toggle-group>
+
+              <mat-radio-group style="padding:0 20px">
+                <mat-radio-button color="primary" value="1" style="width: 60px" checked="true" (change)="selectAll()">All</mat-radio-button>
+                <mat-radio-button color="primary" value="2" (change)="selectDelivered()">Completed</mat-radio-button>
+              </mat-radio-group>
+
+              <div class="floatright">
+                <span style="font-family: 'American Typewriter'">Commission Rate: {{rate*100}}%</span>
+              </div>
+            </div>
+            <br>
+            <p-chart type="bar" [data]="ddata" *ngIf="showDay"></p-chart>
+            <p-chart type="bar" [data]="wdata" *ngIf="showWeek"></p-chart>
+            <p-chart type="bar" [data]="mdata" *ngIf="showMonth"></p-chart>
+            <p-chart type="bar" [data]="ydata" *ngIf="showYear"></p-chart>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+</div>
+
+<!--main-area-end-->

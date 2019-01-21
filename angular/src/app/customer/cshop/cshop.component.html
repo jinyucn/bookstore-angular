@@ -1,0 +1,529 @@
+<app-main-header></app-main-header>
+<app-mobile-menu></app-mobile-menu>
+<!-- breadcrumb start -->
+<div class="breadcrumb-area">
+  <div class="container">
+    <ol class="breadcrumb">
+      <li><a routerLink="/index"><i class="fa fa-home"></i> Home</a></li>
+      <li class="active">Shops</li>
+    </ol>
+  </div>
+</div>
+
+<!--ul class="cshopstate">
+  <li *ngFor="let cshopcontent of cshopstate.data">
+    <h2>{{cshopcontent.id}}</h2>
+  </li>
+</ul-->
+
+<div class="shop-area">
+  <div class="container">
+    <div *ngFor="let cshopcontent of cshopstate.data">
+      <div class="shop-page-bar">
+        <div>
+          <!-- Tab panes -->
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="home">
+              <div class="col-md-6 col-sm-6">
+                <span class="pro-sale-num">
+                   <!--span class="info-sale"><div class="bottom2" (click)="AddWish(cshopcontent.id)"><i class="fa fa-heart"></i> Add to Wishlist</div></span-->
+                   <span class="info-sale"><a (click)="AddWish(cshopcontent.id)"><i class="fa fa-heart"></i> Add to Favorite</a></span>
+
+                </span>
+                <li class="list-item">
+                  <ul class="clearfix">
+                    <li class="list-img">
+                      <a trace="shop" trace-uid="112394247" title="ShopName" target="_blank">
+                        <a routerLink="/cproduct/0/{{cshopcontent.id}}/{{cshopcontent.shopName}}">
+                          <img src="../../../assets/img/product/2.png">
+                        </a>
+                      </a>
+                    </li>
+                    <li class="list-info icon-5zhe">
+                      <h4>
+                        <a trace="shop" trace-uid="112394247" class="shop-name J_shop_name" target="_blank">{{cshopcontent.shopName}}</a>
+                        <a trace="shop" trace-uid="112394247" title="天猫" class="icon-service-tianmao-large"
+                           target="_blank"></a>
+                      </h4>
+                      <p class="shop-info">
+                        <a trace="shop" trace-uid="112394247" class="shop-name J_shop_name" target="_blank">
+                          ({{arr[cshopcontent.shopCategory]}})
+                        </a>
+                        <a trace="shop" trace-uid="112394247" title="天猫" class="icon-service-tianmao-large"
+                           target="_blank"></a>
+                      </p>
+                      <p class="shop-info">
+                        <span></span>
+                        <span class="shop-info-list"><a trace="shop" trace-uid="112394247" target="_blank"></a>
+                          </span>
+                      </p>
+                      <p class="shop-info">
+                        <span>Address:</span>
+                        <span class="shop-address">{{cshopcontent.shopAddress}}</span>
+                      </p>
+                      <p class="shop-info">
+                        <span>Phone:</span>
+                        <span class="shop-address">{{cshopcontent.shopPhone}}</span>
+                      </p>
+                      <br/>
+                      <div class="valuation clearfix" data-spm-anchor-id="a230r.7195193.1997079397.i0.2cd9277d98DWsE">
+                        <span class="icon-list"></span>
+                      </div>
+                    </li>
+                  </ul>
+                </li>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+</div>
+
+
+
+
+<!--div-- class="shop-area">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-9 col-sm-8" style="width: 90%;">
+        <h2 class="page-heading mt-40">
+          <span class="cat-name">ShopName</span>
+        </h2>
+        <div class="shop-page-bar">
+          <div>
+            <div class="tab-content">
+              <div role="tabpanel" class="tab-pane active" id="home">
+                <div class="row" style="list-style-type:none">
+                  <li class="list-item">
+                    <ul class="clearfix">
+                      <li class="list-img">
+                        <a trace="shop" trace-uid="112394247" href="#" title="ShopName" target="_blank">
+                          <img src="../../../assets/img/product/1.jpg">
+                        </a>
+                      </li>
+                      <li class="list-info icon-5zhe">
+                        <h4>
+                          <a trace="shop" trace-uid="112394247" href="#" class="shop-name J_shop_name" target="_blank">ShopName</a>
+                          <a trace="shop" trace-uid="112394247" title="天猫" class="icon-service-tianmao-large"
+                             target="_blank" href="#"></a>
+                        </h4>
+                        <p class="shop-info">
+                          <span>卖家：</span>
+                          <span class="shop-info-list"><a trace="shop" trace-uid="112394247" target="_blank" href="#">ShopName</a>
+                          <span class="shop-address">浙江 宁波</span>
+                          </span>
+                        </p>
+                        <p class="quan">
+                          <span class="promotion"></span>
+                        </p>
+                        <span class="pro-sale-num">
+                          <span class="info-sale"><a href="#"><i class="fa fa-heart"></i> Add to Wishlist</a></span>
+                        </span>
+                        <div class="valuation clearfix" data-spm-anchor-id="a230r.7195193.1997079397.i0.2cd9277d98DWsE">
+                          <span class="icon-list"></span>
+                        </div>
+                      </li>
+                      <li class="shop-products" data-sid="112394247">
+                        <div class="shop-products-container">
+                          <div class="one-product">
+                            <div class="product-img">
+                              <a trace="auction" trace-nid="574870134819" trace-uid="112394247" href="" target="_blank">
+                                <img src="../../../assets/img/product/14.jpg">
+                              </a>
+                            </div>
+                            <div class="price-wrap">
+                              <div class="price-wrap-shade"></div>
+                              <span class="g_price">¥</span><span class="price-num">859.90</span>
+                            </div>
+                          </div>
+
+                          <div class="one-product">
+                            <div class="product-img">
+                              <a trace="auction" trace-nid="576087836783" trace-uid="112394247" href="" target="_blank">
+                                <img src="../../../assets/img/product/14.jpg">
+                              </a>
+                            </div>
+                            <div class="price-wrap">
+                              <div class="price-wrap-shade"></div>
+                              <span class="g_price">¥</span><span class="price-num">599.90</span>
+                            </div>
+                          </div>
+
+                          <div class="one-product">
+                            <div class="product-img">
+                              <a trace="auction" trace-nid="577913915654" trace-uid="112394247" href="" target="_blank">
+                                <img src="../../../assets/img/product/1.jpg">
+                              </a>
+                            </div>
+                            <div class="price-wrap">
+                              <div class="price-wrap-shade"></div>
+                              <span class="g_price">¥</span><span class="price-num">699.90</span>
+                            </div>
+                          </div>
+
+                          <div class="one-product">
+                            <div class="product-img">
+                              <a trace="auction" trace-nid="574739625459" trace-uid="112394247" href="" target="_blank">
+                                <img src="../../../assets/img/product/1.jpg">
+                              </a>
+                            </div>
+                            <div class="price-wrap">
+                              <div class="price-wrap-shade"></div>
+                              <span class="g_price">¥</span><span class="price-num">659.90</span>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="list-item">
+                    <ul class="clearfix">
+                      <li class="list-img">
+                        <a trace="shop" trace-uid="112394247" href="#" title="太平鸟官方旗舰店" target="_blank">
+                          <img src="../../../assets/img/product/1.jpg">
+                        </a>
+                      </li>
+                      <li class="list-info icon-5zhe">
+                        <h4>
+                          <a trace="shop" trace-uid="112394247" href="#" class="shop-name J_shop_name" target="_blank">太平鸟官方旗舰店</a>
+                          <a trace="shop" trace-uid="112394247" title="天猫" class="icon-service-tianmao-large"
+                             target="_blank" href="#"></a>
+                        </h4>
+                        <p class="shop-info">
+                          <span>卖家:</span>
+                          <span class="shop-info-list"><a trace="shop" trace-uid="112394247" target="_blank" href="#">太平鸟官方旗舰店</a>
+                          <span class="shop-address">浙江 宁波</span>
+                          </span>
+                        </p>
+                        <p class="quan">
+                          <span class="promotion"></span>
+                        </p>
+                        <span class="pro-sale-num">
+                          <span class="info-sale"><a href="#"><i class="fa fa-heart"></i> Add to Wishlist</a></span>
+                        </span>
+                        <div class="valuation clearfix" data-spm-anchor-id="a230r.7195193.1997079397.i0.2cd9277d98DWsE">
+                          <span class="icon-list"></span>
+                        </div>
+                      </li>
+                      <li class="shop-products" data-sid="112394247">
+                        <div class="shop-products-container">
+                          <div class="one-product">
+                            <div class="product-img">
+                              <a trace="auction" trace-nid="574870134819" trace-uid="112394247" href="" target="_blank">
+                                <img src="../../../assets/img/product/14.jpg">
+                              </a>
+                            </div>
+                            <div class="price-wrap">
+                              <div class="price-wrap-shade"></div>
+                              <span class="g_price">¥</span><span class="price-num">859.90</span>
+                            </div>
+                          </div>
+
+                          <div class="one-product">
+                            <div class="product-img">
+                              <a trace="auction" trace-nid="576087836783" trace-uid="112394247" href="" target="_blank">
+                                <img src="../../../assets/img/product/14.jpg">
+                              </a>
+                            </div>
+                            <div class="price-wrap">
+                              <div class="price-wrap-shade"></div>
+                              <span class="g_price">¥</span><span class="price-num">599.90</span>
+                            </div>
+                          </div>
+
+                          <div class="one-product">
+                            <div class="product-img">
+                              <a trace="auction" trace-nid="577913915654" trace-uid="112394247" href="" target="_blank">
+                                <img src="../../../assets/img/product/1.jpg">
+                              </a>
+                            </div>
+                            <div class="price-wrap">
+                              <div class="price-wrap-shade"></div>
+                              <span class="g_price">¥</span><span class="price-num">699.90</span>
+                            </div>
+                          </div>
+
+                          <div class="one-product">
+                            <div class="product-img">
+                              <a trace="auction" trace-nid="574739625459" trace-uid="112394247" href="" target="_blank">
+                                <img src="../../../assets/img/product/1.jpg">
+                              </a>
+                            </div>
+                            <div class="price-wrap">
+                              <div class="price-wrap-shade"></div>
+                              <span class="g_price">¥</span><span class="price-num">659.90</span>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="list-item">
+                    <ul class="clearfix">
+                      <li class="list-img">
+                        <a trace="shop" trace-uid="112394247" href="#" title="太平鸟官方旗舰店" target="_blank">
+                          <img src="../../../assets/img/product/1.jpg">
+                        </a>
+                      </li>
+                      <li class="list-info icon-5zhe">
+                        <h4>
+                          <a trace="shop" trace-uid="112394247" href="#" class="shop-name J_shop_name" target="_blank">太平鸟官方旗舰店</a>
+                          <a trace="shop" trace-uid="112394247" title="天猫" class="icon-service-tianmao-large"
+                             target="_blank" href="#"></a>
+                        </h4>
+                        <p class="shop-info">
+                          <span>卖家:</span>
+                          <span class="shop-info-list"><a trace="shop" trace-uid="112394247" target="_blank" href="#">太平鸟官方旗舰店</a>
+                          <span class="shop-address">浙江 宁波</span>
+                          </span>
+                        </p>
+                        <p class="quan">
+                          <span class="promotion"></span>
+                        </p>
+                        <span class="pro-sale-num">
+                          <span class="info-sale"><a href="#"><i class="fa fa-heart"></i> Add to Wishlist</a></span>
+                        </span>
+                        <div class="valuation clearfix" data-spm-anchor-id="a230r.7195193.1997079397.i0.2cd9277d98DWsE">
+                          <span class="icon-list"></span>
+                        </div>
+                      </li>
+                      <li class="shop-products" data-sid="112394247">
+                        <div class="shop-products-container">
+                          <div class="one-product">
+                            <div class="product-img">
+                              <a trace="auction" trace-nid="574870134819" trace-uid="112394247" href="" target="_blank">
+                                <img src="../../../assets/img/product/14.jpg">
+                              </a>
+                            </div>
+                            <div class="price-wrap">
+                              <div class="price-wrap-shade"></div>
+                              <span class="g_price">¥</span><span class="price-num">859.90</span>
+                            </div>
+                          </div>
+
+                          <div class="one-product">
+                            <div class="product-img">
+                              <a trace="auction" trace-nid="576087836783" trace-uid="112394247" href="" target="_blank">
+                                <img src="../../../assets/img/product/14.jpg">
+                              </a>
+                            </div>
+                            <div class="price-wrap">
+                              <div class="price-wrap-shade"></div>
+                              <span class="g_price">¥</span><span class="price-num">599.90</span>
+                            </div>
+                          </div>
+
+                          <div class="one-product">
+                            <div class="product-img">
+                              <a trace="auction" trace-nid="577913915654" trace-uid="112394247" href="" target="_blank">
+                                <img src="../../../assets/img/product/1.jpg">
+                              </a>
+                            </div>
+                            <div class="price-wrap">
+                              <div class="price-wrap-shade"></div>
+                              <span class="g_price">¥</span><span class="price-num">699.90</span>
+                            </div>
+                          </div>
+
+                          <div class="one-product">
+                            <div class="product-img">
+                              <a trace="auction" trace-nid="574739625459" trace-uid="112394247" href="" target="_blank">
+                                <img src="../../../assets/img/product/1.jpg">
+                              </a>
+                            </div>
+                            <div class="price-wrap">
+                              <div class="price-wrap-shade"></div>
+                              <span class="g_price">¥</span><span class="price-num">659.90</span>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="list-item">
+                    <ul class="clearfix">
+                      <li class="list-img">
+                        <a trace="shop" trace-uid="112394247" href="#" title="太平鸟官方旗舰店" target="_blank">
+                          <img src="../../../assets/img/product/1.jpg">
+                        </a>
+                      </li>
+                      <li class="list-info icon-5zhe">
+                        <h4>
+                          <a trace="shop" trace-uid="112394247" href="#" class="shop-name J_shop_name" target="_blank">太平鸟官方旗舰店</a>
+                          <a trace="shop" trace-uid="112394247" title="天猫" class="icon-service-tianmao-large"
+                             target="_blank" href="#"></a>
+                        </h4>
+                        <p class="shop-info">
+                          <span>卖家:</span>
+                          <span class="shop-info-list"><a trace="shop" trace-uid="112394247" target="_blank" href="#">太平鸟官方旗舰店</a>
+                          <span class="shop-address">浙江 宁波</span>
+                          </span>
+                        </p>
+                        <p class="quan">
+                          <span class="promotion"></span>
+                        </p>
+                        <span class="pro-sale-num">
+                          <span class="info-sale"><a href="#"><i class="fa fa-heart"></i> Add to Wishlist</a></span>
+                        </span>
+                        <div class="valuation clearfix" data-spm-anchor-id="a230r.7195193.1997079397.i0.2cd9277d98DWsE">
+                          <span class="icon-list"></span>
+                        </div>
+                      </li>
+                      <li class="shop-products" data-sid="112394247">
+                        <div class="shop-products-container">
+                          <div class="one-product">
+                            <div class="product-img">
+                              <a trace="auction" trace-nid="574870134819" trace-uid="112394247" href="" target="_blank">
+                                <img src="../../../assets/img/product/14.jpg">
+                              </a>
+                            </div>
+                            <div class="price-wrap">
+                              <div class="price-wrap-shade"></div>
+                              <span class="g_price">¥</span><span class="price-num">859.90</span>
+                            </div>
+                          </div>
+
+                          <div class="one-product">
+                            <div class="product-img">
+                              <a trace="auction" trace-nid="576087836783" trace-uid="112394247" href="" target="_blank">
+                                <img src="../../../assets/img/product/14.jpg">
+                              </a>
+                            </div>
+                            <div class="price-wrap">
+                              <div class="price-wrap-shade"></div>
+                              <span class="g_price">¥</span><span class="price-num">599.90</span>
+                            </div>
+                          </div>
+
+                          <div class="one-product">
+                            <div class="product-img">
+                              <a trace="auction" trace-nid="577913915654" trace-uid="112394247" href="" target="_blank">
+                                <img src="../../../assets/img/product/1.jpg">
+                              </a>
+                            </div>
+                            <div class="price-wrap">
+                              <div class="price-wrap-shade"></div>
+                              <span class="g_price">¥</span><span class="price-num">699.90</span>
+                            </div>
+                          </div>
+
+                          <div class="one-product">
+                            <div class="product-img">
+                              <a trace="auction" trace-nid="574739625459" trace-uid="112394247" href="" target="_blank">
+                                <img src="../../../assets/img/product/1.jpg">
+                              </a>
+                            </div>
+                            <div class="price-wrap">
+                              <div class="price-wrap-shade"></div>
+                              <span class="g_price">¥</span><span class="price-num">659.90</span>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="list-item">
+                    <ul class="clearfix">
+                      <li class="list-img">
+                        <a trace="shop" trace-uid="112394247" href="#" title="太平鸟官方旗舰店" target="_blank">
+                          <img src="../../../assets/img/product/1.jpg">
+                        </a>
+                      </li>
+                      <li class="list-info icon-5zhe">
+                        <h4>
+                          <a trace="shop" trace-uid="112394247" href="#" class="shop-name J_shop_name" target="_blank">太平鸟官方旗舰店</a>
+                          <a trace="shop" trace-uid="112394247" title="天猫" class="icon-service-tianmao-large"
+                             target="_blank" href="#"></a>
+                        </h4>
+                        <p class="shop-info">
+                          <span>卖家:</span>
+                          <span class="shop-info-list"><a trace="shop" trace-uid="112394247" target="_blank" href="#">太平鸟官方旗舰店</a>
+                          <span class="shop-address">浙江 宁波</span>
+                          </span>
+                        </p>
+                        <p class="quan">
+                          <span class="promotion"></span>
+                        </p>
+                        <span class="pro-sale-num">
+                          <span class="info-sale"><a href="#"><i class="fa fa-heart"></i> Add to Wishlist</a></span>
+                        </span>
+                        <div class="valuation clearfix" data-spm-anchor-id="a230r.7195193.1997079397.i0.2cd9277d98DWsE">
+                          <span class="icon-list"></span>
+                        </div>
+                      </li>
+                      <li class="shop-products" data-sid="112394247">
+                        <div class="shop-products-container">
+                          <div class="one-product">
+                            <div class="product-img">
+                              <a trace="auction" trace-nid="574870134819" trace-uid="112394247" href="" target="_blank">
+                                <img src="../../../assets/img/product/14.jpg">
+                              </a>
+                            </div>
+                            <div class="price-wrap">
+                              <div class="price-wrap-shade"></div>
+                              <span class="g_price">¥</span><span class="price-num">859.90</span>
+                            </div>
+                          </div>
+
+                          <div class="one-product">
+                            <div class="product-img">
+                              <a trace="auction" trace-nid="576087836783" trace-uid="112394247" href="" target="_blank">
+                                <img src="../../../assets/img/product/14.jpg">
+                              </a>
+                            </div>
+                            <div class="price-wrap">
+                              <div class="price-wrap-shade"></div>
+                              <span class="g_price">¥</span><span class="price-num">599.90</span>
+                            </div>
+                          </div>
+
+                          <div class="one-product">
+                            <div class="product-img">
+                              <a trace="auction" trace-nid="577913915654" trace-uid="112394247" href="" target="_blank">
+                                <img src="../../../assets/img/product/1.jpg">
+                              </a>
+                            </div>
+                            <div class="price-wrap">
+                              <div class="price-wrap-shade"></div>
+                              <span class="g_price">¥</span><span class="price-num">699.90</span>
+                            </div>
+                          </div>
+
+                          <div class="one-product">
+                            <div class="product-img">
+                              <a trace="auction" trace-nid="574739625459" trace-uid="112394247" href="" target="_blank">
+                                <img src="../../../assets/img/product/1.jpg">
+                              </a>
+                            </div>
+                            <div class="price-wrap">
+                              <div class="price-wrap-shade"></div>
+                              <span class="g_price">¥</span><span class="price-num">659.90</span>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+                  </li>
+                </div>
+                <div class="content-sortpagibar">
+                  <div class="product-count display-inline">Showing 1 - 5 of 13 items</div>
+                  <ul class="shop-pagi display-inline">
+                    <li><a href="#"><i class="fa fa-angle-left"></i></a></li>
+                    <li class="active"><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div-->
+<!-- shop-area end -->

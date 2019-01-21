@@ -1,0 +1,194 @@
+<app-so-header></app-so-header>
+<!--menu-area-start-->
+<div class="mainmenu-area bg-color-2 hidden-xs hidden-sm">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3">
+        <app-so-main-menu></app-so-main-menu>
+      </div>
+      <div class="col-md-9 pad">
+        <div class="breadcrumb">
+          <li><a class="color2" routerLink="/index"><i class="fa fa-home color1"></i> Home </a></li>
+          <li><a class="color2" routerLink="/ShopOwnerCenter">ShopOwnerCenter </a></li>
+          <li class="active color1"> My Account </li>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--menu-area-end-->
+<!--main-area-start-->
+<div style="background: white">
+
+  <div class="slider-area">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3">
+        </div>
+        <div class="col-md-9">
+          <div class="ant-col-md-24">
+            <mat-card >
+              <p style="font-size: 120%;">My Account Balance: ${{balance}} <button nz-button (click)="getBalance();getHistory()">Refresh </button></p>
+              <br>
+              <mat-form-field class="example-full-width" style="padding: 0 15px">
+                <input style="border:0px" matInput placeholder="Amount of Withdraw" [(ngModel)]="withdrawM" type="number">
+                <mat-icon matSuffix>mode_edit</mat-icon>
+              </mat-form-field>
+              <mat-form-field class="example-full-width" style="padding: 0 15px">
+                <input style="border:0px" matInput placeholder="Visa Card Number" [(ngModel)]="cardNumber1">
+                <mat-icon matSuffix>mode_edit</mat-icon>
+              </mat-form-field>
+              <button mat-raised-button color="primary" (click)="withdraw(withdrawM)">Withdraw</button>
+              <br>
+              <mat-form-field class="example-full-width" style="padding: 0 15px">
+                <input style="border:0px" matInput placeholder="Amount of Recharge" [(ngModel)]="rechargeM" type="number">
+                <mat-icon matSuffix>mode_edit</mat-icon>
+              </mat-form-field>
+              <mat-form-field class="example-full-width" style="padding: 0 15px">
+                <input style="border:0px" matInput placeholder="Visa Card Number" [(ngModel)]="cardNumber2">
+                <mat-icon matSuffix>mode_edit</mat-icon>
+              </mat-form-field>
+              <button mat-raised-button color="primary" (click)="recharge(rechargeM)">Recharge</button>
+<br>
+
+            <mat-form-field style="padding: 0 15px">
+              <input style="height: 15px;" matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
+            </mat-form-field>
+
+              <div  class="mat-elevation-z4">
+                <table mat-table [dataSource]="historyAll" matSort #sortTablePH="matSort">
+
+                  <ng-container matColumnDef="cause">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Action</mat-header-cell>
+                    <mat-cell *matCellDef="let row">{{row.cause}}</mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="delta">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Amount of Money</mat-header-cell>
+                    <mat-cell *matCellDef="let row" >
+                      <label *ngIf="row.delta>0" style="color: red"> {{row.delta}}</label>
+                      <label *ngIf="row.delta<0" style="color: green"> {{row.delta}}</label>
+                    </mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="gmtCreate">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Time</mat-header-cell>
+                    <mat-cell *matCellDef="let row">{{row.gmtCreate}}</mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="detail">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Detail</mat-header-cell>
+                    <mat-cell *matCellDef="let row" >
+                      <button mat-raised-button color="primary" class="theme-btn btn-style-two" *ngIf="row.cause=='ORDER'" (click)="checkOne(this.row.orderId);getOrderOne(this.row.orderId)"> Order Detail</button>
+                      <!--<button *ngIf="row.cause=='ORDER'" nz-button nzType="primary" (click)="checkOne(this.row.orderId);getOrderOne(this.row.orderId)" > Order Detail</button>-->
+                    </mat-cell>
+                  </ng-container>
+
+                  <mat-header-row *matHeaderRowDef="['cause','delta','gmtCreate','detail']"></mat-header-row>
+                  <mat-row *matRowDef="let row; columns:['cause','delta','gmtCreate','detail']"></mat-row>
+
+                </table>
+                <mat-paginator #paginator [length]="length" [pageIndex]="0" [pageSize]="10" [pageSizeOptions]="[5, 10, 25]"></mat-paginator>
+              </div>
+            </mat-card>
+
+
+            <nz-drawer  [nzBodyStyle] [nzMaskClosable]="false" [nzWidth]="1000" [nzVisible]=visible nzTitle="Order detail" (nzOnClose)="close()">
+              <nz-table #basicTable nzBordered [nzData]="[{}]" [nzPageSize]="50" [nzScroll]="{ y: '600px' }" [nzNoResult]="nothing">
+                <thead>
+                <tr>
+                  <th nzWidth="20%"></th>
+                  <th nzWidth="80%"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td>Customer Username</td>
+                  <td>{{customerNick}}</td>
+                </tr>
+                <tr>
+                  <td>Receiver Name</td>
+                  <td>{{deliverReceiver}}</td>
+                </tr>
+                <tr>
+                  <td>Receiver Phone</td>
+                  <td>{{deliverPhone}}</td>
+                </tr>
+                <tr>
+                  <td>Shipment Address</td>
+                  <td>{{deliverAddress}}</td>
+                </tr>
+                <tr>
+                  <td>Shipment Company</td>
+                  <td><a *ngIf="deliverId > -1"><img src="http://47.106.108.89:8086/static/{{deliverServicePic}}"/>
+                    Delivery Bill Number: {{deliverBillNo}}</a>
+                    <mat-form-field *ngIf="deliverId == -1">
+                      <mat-select placeholder="Choose Shipment Company" [(ngModel)]="selectedCompany">
+                        <mat-option>None</mat-option>
+                        <mat-option *ngFor="let company of companies" [value]="company" >{{company}}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                    <button *ngIf="deliverId == -1" nz-button nzType="primary" (click)="arrange(this.id,this.selectedCompany)"> Arrange Now</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Order status</td>
+                  <td>{{status}}</td>
+                </tr>
+                <tr>
+                  <td>Products</td>
+                  <td>
+                    <div>
+                      <nz-table #basicTable  [nzData]="[{}]" [nzPageSize]="50" [nzScroll]="{ y: '200px' }" [nzNoResult]="nothing">
+                <thead>
+                <tr>
+                  <th nzWidth="40%">Title</th>
+                  <th nzWidth="20%">Picture</th>
+                  <th nzWidth="20%">UnitPrice</th>
+                  <th nzWidth="20%">Amount</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let item of products">
+                  <ng-container >
+                    <td nzWidth="40%">{{item.title}}</td>
+                    <td nzWidth="20%"> <a><img src="http://47.106.108.89:8086/static/{{item.merchandisePic}}" alt="" /></a></td>
+                    <td nzWidth="20%">{{item.unitPrice}}</td>
+                    <td nzWidth="20%">{{item.amount}}</td>
+                  </ng-container>
+                </tr>
+                </tbody>
+              </nz-table>
+          </div>
+          </td>
+          </tr>
+          <tr>
+            <td >Total Price</td>
+            <td  style="font-size: large; color: darkorange" >{{total_price}}</td>
+          </tr>
+          </tbody>
+          </nz-table>
+          </nz-drawer>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+</div>
+
+<!--main-area-end-->

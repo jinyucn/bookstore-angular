@@ -1,0 +1,141 @@
+
+<app-main-header></app-main-header>
+<app-mobile-menu></app-mobile-menu>
+<!-- mainmenu-area-end -->
+<!-- breadcrumb start -->
+<div class="breadcrumb-area">
+  <div class="container">
+    <ol class="breadcrumb">
+      <li><a routerLink="/index"><i class="fa fa-home"></i> Home</a></li>
+      <li class="active">Cart</li>
+    </ol>
+  </div>
+</div>
+<!-- breadcrumb end -->
+<!-- cart-main-area start -->
+<div class="cart-main-area pt-0" style="background-color: white">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <form action="#">
+          <div class="table-content table-responsive">
+            <table>
+              <thead>
+              <tr>
+                <th class="product-thumbnail">Image</th>
+                <th class="product-name">Product</th>
+                <th class="product-price">Price</th>
+                <th class="product-quantity">Quantity</th>
+                <th class="product-subtotal">Total</th>
+                <th class="product-remove">Remove</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let mycart of cproductstate.data">
+                <td class="product-thumbnail"><a routerLink="/cdetail/{{mycart.id}}"><img src="http://47.106.108.89:8086/static/{{mycart.picFilename}}" alt="" /></a></td>
+                <td class="product-name"><a>{{mycart.title}}</a></td>
+                <td class="product-price"><span class="amount">${{mycart.price}}</span></td>
+                <td class="product-quantity"><input type="number" value="{{mycart.num}}" id = "Getvalue{{mycart.id}}" (click)="Func(mycart.id)"/></td>
+                <td class="product-subtotal">${{mycart.price * mycart.num}}</td>
+                <td class="product-remove"><div><i nz-i nzType="danger" nz-popconfirm nzTitle="Are you sure to delete this product?" (nzOnConfirm)="REmoveCart(mycart.id)" (nzOnCancel)="cancel()" class="fa fa-times"></i></div></td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="row">
+            <div class="col-md-9 col-sm-7 col-xs-12">
+              <!-- <div class="buttons-cart">
+                                    <input type="submit" value="Update Cart" />
+                                    <a href="#">Continue Shopping</a>
+                                </div>-->
+            </div>
+            <div class="col-md-3 col-sm-5 col-xs-12">
+              <div class="cart_totals">
+                <h2>Cart Totals</h2>
+                <table>
+                  <tbody>
+                  <!-- <tr class="cart-subtotal">
+                                              <th>Subtotal</th>
+                                              <td><span class="amount">$215.00</span></td>
+                                          </tr> -->
+                  <tr class="order-total">
+                    <th>Total</th>
+                    <td>
+                      <strong><span class="amount">${{allprice}}</span></strong>
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+                <div class="wc-proceed-to-checkout" (click)="showModal()">
+                  <a>Proceed to Checkout</a><br><br><br>
+                  <nz-modal
+                    [(nzVisible)]="isVisible"
+                    nzTitle="Order"
+                    nzOkText="Ok"
+                    nzCancelText="Cancel"
+                    (nzOnOk)="handleOk()"
+                    (nzOnCancel)="handleCancel()">
+                    <mat-card>
+                    <mat-form-field style="width: 100%;background-color: white" >
+                      <input matInput
+                             placeholder="Receiver Name" name="nick" [(ngModel)]="order_nick" style="background-color: white">
+                      <mat-icon matSuffix>mode_edit</mat-icon>
+                    </mat-form-field>
+                      <br>
+                    <mat-form-field style="width: 100%;background-color: white">
+                      <input matInput placeholder="Receiver Phone" name="phone" [(ngModel)]="order_phone" style="background-color: white">
+                      <mat-icon matSuffix>mode_edit</mat-icon>
+                    </mat-form-field>
+                    <p>Enter the shipping address</p>
+                    <nz-cascader
+                      nzChangeOnSelect
+                      [nzOptions]="nzOptions"
+                      [(ngModel)]="values"
+                      name="values"
+                      (ngModelChange)="onChanges($event)" style="width: 300px;margin-bottom: 10px">
+                    </nz-cascader>
+                    <br>
+                    <mat-form-field style="width: 100%;background-color: white">
+                      <input matInput style="background-color: white" placeholder="Enter your street" name="street" [(ngModel)]="street">
+                      <mat-icon matSuffix>mode_edit</mat-icon>
+                    </mat-form-field>
+                    </mat-card>
+                  </nz-modal>
+                </div>
+                <nz-drawer  [nzBodyStyle] [nzMaskClosable]="false" [nzWidth]="500" [nzVisible]=visible nzTitle="Pay Now" (nzOnClose)="close()">
+                  <a><img src="../../../assets/img/weixin.png" (click)="payNow()" alt="null" style="width: 30%;height: 30%;"/></a>
+                  <a><img src="../../../assets/img/card.png" (click)="payNow()" alt="null" style="width: 30%;height: 30%;"/></a>
+                  <a><img src="../../../assets/img/alipay.png" (click)="payNow()" alt="null" style="width: 30%;height: 30%;"/></a>
+                  <button mat-fab color="accent" (click)="codNow()">COD</button>
+              </nz-drawer>
+
+                <!--<section class="block">-->
+                  <!--<div class="content2">-->
+                    <!--<div class="app">-->
+                      <!--<label class="text_amount">-->
+                        <!--<input id="amount" type="text" placeholder="Price"/>-->
+                      <!--</label>-->
+                      <!--<div class="ch">-->
+                        <!--<span class="up" onclick="wap_pay('upacp_wap')">银联 WAP</span>-->
+                        <!--<span class="up" onclick="wap_pay('alipay_wap')">支付宝 WAP</span>-->
+                        <!--<span class="up" onclick="wap_pay('bfb_wap')">百度钱包 WAP</span>-->
+                        <!--<span class="up" onclick="wap_pay('jdpay_wap')">京东支付 WAP</span>-->
+                        <!--<span class="up" onclick="wap_pay('yeepay_wap')">易宝支付 WAP</span>-->
+                        <!--<span class="up" onclick="wap_pay('wx_pub')">微信浏览器内公众号支付 WAP</span>-->
+
+                      <!--</div>-->
+                    <!--</div>-->
+                  <!--</div>-->
+                <!--</section>-->
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div style="background-color: white;"><br/><br/><br/><br/></div>
+</div>
+
+<!-- cart-main-area end -->
+<!-- newletter-area-start -->

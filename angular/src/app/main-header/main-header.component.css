@@ -1,0 +1,20 @@
+.search-box form select#select {
+  background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+  border: medium none;
+  color: #999999;
+  height: 100%;
+  padding: 0 8px;
+  position: absolute;
+  width: 120px;
+}
+
+.search-box form select#select2 {
+  background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+  border: medium none;
+  color: #999999;
+  height: 100%;
+  padding: 0 8px;
+  left: 120px;
+  position: absolute;
+  width: 85px;
+}

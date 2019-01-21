@@ -1,0 +1,86 @@
+<app-so-header></app-so-header>
+
+<!--menu-area-start-->
+<div class="mainmenu-area bg-color-2 hidden-xs hidden-sm">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3">
+        <app-so-main-menu></app-so-main-menu>
+      </div>
+      <div class="col-md-9 pad">
+        <div class="breadcrumb">
+          <li><a class="color2" routerLink="/index"><i class="fa fa-home color1"></i> Home </a></li>
+          <li><a class="color2" routerLink="/ShopOwnerCenter">ShopOwnerCenter </a></li>
+          <li class="active color1"> Notification </li>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--menu-area-end-->
+<!--main-area-start-->
+<div style="background: white">
+
+  <div class="slider-area">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3">
+        </div>
+        <div class="col-md-9">
+          <div class="ant-col-md-24">
+            <nz-table #basicTable  [nzData]="[{}]" >
+              <thead>
+              <tr>
+                <th nzWidth="20%"></th>
+                <th nzWidth="80%"></th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+                <td>Username</td>
+                <td>{{nick}}</td>
+              </tr>
+              <tr>
+                <td>Shop Name</td>
+                <td>{{shopName}}</td>
+              </tr>
+              <tr>
+                <td>Activation</td>
+                <td>{{role}}</td>
+              </tr>
+              <tr>
+                <td>Shop Status</td>
+                <td>{{shopStatus}}</td>
+              </tr>
+              </tbody>
+            </nz-table>
+            <button mat-fab color="primary" (click)="getShopInfo()">Refresh</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+</div>
+
+<!--main-area-end-->
+
+
+
+

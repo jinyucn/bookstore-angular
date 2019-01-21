@@ -1,0 +1,181 @@
+<app-so-header></app-so-header>
+
+<!--menu-area-start-->
+<div class="mainmenu-area bg-color-2 hidden-xs hidden-sm">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3">
+        <app-so-main-menu></app-so-main-menu>
+      </div>
+      <div class="col-md-9 pad">
+        <div class="breadcrumb">
+          <li><a class="color2" routerLink="/index"><i class="fa fa-home color1"></i> Home </a></li>
+          <li><a class="color2" routerLink="/ShopOwnerCenter">ShopOwnerCenter </a></li>
+          <li class="active color1"> View Product </li>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div style="background: white">
+
+  <div class="slider-area">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3">
+        </div>
+        <div class="col-md-9">
+          <div class="ant-col-md-24">
+            <div>
+              <nz-table #basicTable nzBordered [nzData]="realProducts.data"  [nzNoResult]="nothing">
+                <thead>
+                <tr>
+                  <th nzWidth="20%">Product ID</th>
+                  <th nzWidth="30%">Product Title</th>
+                  <th  nzWidth="15%">Price</th>
+                  <th  nzWidth="15%">Picture</th>
+                  <th  nzWidth="20%">Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let item of realProducts.data">
+                  <ng-container >
+                    <td nzWidth="20%">{{item.id}}</td>
+                    <td nzWidth="30%">{{item.title}}</td>
+                    <td nzWidth="15%">$ {{item.price}}</td>
+                    <td nzWidth="15%"> <a><img src="http://47.106.108.89:8086/static/{{item.picFilename}}" alt="" /></a></td>
+                    <td nzWidth="20%">
+                      <button nz-button nzType="default" (click)="edit(this.item.id,this.item.title,this.item.price,this.item.picFilename)">Edit</button>
+                      <button nz-button nzType="danger" nz-popconfirm nzTitle="Are you sure to delete this product?" (nzOnConfirm)="delete(this.item.id)" (nzOnCancel)="cancel()">Delete</button>
+                    </td>
+                  </ng-container>
+                </tr>
+                </tbody>
+              </nz-table>
+              <nz-drawer [nzBodyStyle]="{ height: 'calc(100% - 55px)', overflow: 'auto', 'padding-bottom':'53px' }"[nzMaskClosable]="false" [nzWidth]="720" [nzVisible]=visible_edit nzTitle="Edit the product" (nzOnClose)="close()">
+                <form nz-form>
+                  <div nz-row nzGutter="8">
+                    <div nz-col nzSpan="5">
+                      <nz-form-item>
+                        <nz-form-label>Title</nz-form-label>
+                        <nz-form-control>
+                          <input [(ngModel)]=edit_title name="title" nz-input >
+                        </nz-form-control>
+                      </nz-form-item>
+                    </div>
+                    <div nz-col nzSpan="5">
+                      <nz-form-item>
+                        <nz-form-label>Price</nz-form-label>
+                        <nz-form-control>
+                          <input [(ngModel)]=edit_price name="price" nz-input >
+                        </nz-form-control>
+                      </nz-form-item>
+                    </div>
+                  </div>
+                  <div nz-row nzGutter="15">
+                    <div nz-col nzSpan="12">
+                      <nz-form-item>
+                        <nz-form-label>Picture</nz-form-label>
+                        <nz-form-control>
+                          <div>
+                            <div class="row">
+                              <div class="col-md-4">
+                                <h5>Select files</h5>
+                                <div ng2FileDrop
+                                     [ngClass]="{'nv-file-over': hasBaseDropZoneOver}"
+                                     (fileOver)="fileOverBase($event)"
+                                     [uploader]="uploader"
+                                     class="well my-drop-zone">
+                                  Drop zone
+                                </div>
+                                <input type="file" ng2FileSelect [uploader]="uploader" (change)="selectedFileOnChanged($event)"/>
+                              </div>
+                              <div class="col-md-8" style="margin-bottom: 40px">
+                                <h5>Upload queue</h5>
+                                <table class="table">
+                                  <thead>
+                                  <tr>
+                                    <th width="30%">Name</th>
+                                    <th>Size</th>
+                                    <th>Progress</th>
+                                  </tr>
+                                  </thead>
+                                  <tbody>
+                                  <tr *ngFor="let item of uploader.queue">
+                                    <td><strong>{{ item?.file?.name }}</strong></td>
+                                    <td *ngIf="uploader.isHTML5" nowrap>{{ item?.file?.size/1024/1024 | number:'.2' }} MB</td>
+                                    <td *ngIf="uploader.isHTML5">
+                                      <div class="progress" style="margin-bottom: 0;">
+                                        <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': item.progress + '%' }"></div>
+                                      </div>
+                                    </td>
+                                    <td class="text-center">
+                                      <span *ngIf="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>
+                                      <span *ngIf="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>
+                                      <span *ngIf="item.isError"><i class="glyphicon glyphicon-remove"></i></span>
+                                    </td>
+                                    <td nowrap>
+                                      <button type="button" class="btn btn-success btn-xs"
+                                              (click)="uploadPic(item)" [disabled]="item.isReady || item.isUploading || item.isSuccess">
+                                        <span class="glyphicon glyphicon-upload"></span> Upload
+                                      </button>
+                                      <button type="button" class="btn btn-warning btn-xs"
+                                              (click)="item.cancel()" [disabled]="!item.isUploading">
+                                        <span class="glyphicon glyphicon-ban-circle"></span> Cancel
+                                      </button>
+                                      <button type="button" class="btn btn-danger btn-xs"
+                                              (click)="item.remove()">
+                                        <span class="glyphicon glyphicon-trash"></span> Remove
+                                      </button>
+                                    </td>
+                                  </tr>
+                                  </tbody>
+                                </table>
+                                <div>
+                                  <div>
+                                    Queue progress:
+                                    <div class="progress" style="">
+                                      <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </nz-form-control>
+                      </nz-form-item>
+                    </div>
+                  </div>
+                </form>
+                <div class="footer">
+                  <button type="button" (click)="close()" class="ant-btn" style="margin-right: 8px;"><span>Cancel</span></button>
+                  <button type="button" (click)="apply()" class="ant-btn ant-btn-primary"><span>Submit</span></button>
+                </div>
+              </nz-drawer>
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+</div>
